@@ -37,7 +37,7 @@ interface PeriodDef {
 const PERIODS: PeriodDef[] = [
   { id: 'Q4-25', label: '4Q25', year: 2025, quarter: 4 },
   { id: 'Q1-26', label: '1Q26', year: 2026, quarter: 1 },
-  { id: 'Q4-26', label: '4Q26 (Proy.)', year: 2026, quarter: 4 },
+  { id: 'Q1-27', label: '1Q27 (Proy.)', year: 2027, quarter: 1 },
 ]
 
 interface Slice {
@@ -240,12 +240,28 @@ function CategoryRow({ category, label }: CategoryRowProps) {
         </button>
       </div>
       <div className="donut-matrix__row-values">
-        {PERIODS.map((p) => (
-          <div key={p.id} className="donut-matrix__cell">
-            <Donut category={category} period={p} size={donutSize} />
-            <span className="donut-matrix__cell-year">{p.label}</span>
-          </div>
-        ))}
+        {PERIODS.map((p) => {
+          const isEmpty = category === 'aprobadoNoVigente' && p.id === 'Q1-27'
+          return (
+            <div key={p.id} className="donut-matrix__cell">
+              {isEmpty ? (
+                <div
+                  className="donut-matrix__cell-empty"
+                  style={{ width: donutSize, height: donutSize }}
+                  aria-label="Sin proyección"
+                >
+                  <span className="donut-matrix__cell-empty-mark">—</span>
+                  <span className="donut-matrix__cell-empty-note">
+                    Sin proyección
+                  </span>
+                </div>
+              ) : (
+                <Donut category={category} period={p} size={donutSize} />
+              )}
+              <span className="donut-matrix__cell-year">{p.label}</span>
+            </div>
+          )
+        })}
       </div>
     </Card>
   )

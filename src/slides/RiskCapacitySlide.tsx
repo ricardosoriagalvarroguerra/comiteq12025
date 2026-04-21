@@ -17,26 +17,35 @@ import './RiskCapacitySlide.css'
 
 type Bucket = 'GI1' | 'GI2' | 'Superior' | 'Intermedia' | 'Básica'
 
-const YEARS = [2024, 2025, 2026] as const
-const YEAR_LABEL: Record<number, string> = {
-  2024: '4Q24',
-  2025: '4Q25',
-  2026: '4Q26 (Proy.)',
+interface PeriodDef {
+  id: string
+  label: string
+  year: number
+  quarter: 1 | 2 | 3 | 4
 }
+
+const PERIODS: PeriodDef[] = [
+  { id: 'Q4-25', label: '4Q25', year: 2025, quarter: 4 },
+  { id: 'Q1-26', label: '1Q26', year: 2026, quarter: 1 },
+  { id: 'Q1-27', label: '1Q27 (Proy.)', year: 2027, quarter: 1 },
+]
 
 const BUCKETS: Bucket[] = ['GI1', 'GI2', 'Superior', 'Intermedia', 'Básica']
 
-const COUNTRY_BUCKET: Record<number, Record<CarteraCountry, Bucket>> = {
-  2024: { ARG: 'Básica', BOL: 'Básica', BRA: 'Superior', PAR: 'GI2', URU: 'GI1', RNS: 'Intermedia' },
-  2025: { ARG: 'Básica', BOL: 'Básica', BRA: 'Superior', PAR: 'GI2', URU: 'GI1', RNS: 'Intermedia' },
-  2026: { ARG: 'Básica', BOL: 'Básica', BRA: 'Superior', PAR: 'GI2', URU: 'GI1', RNS: 'Intermedia' },
+const BUCKET_BY_COUNTRY: Record<CarteraCountry, Bucket> = {
+  ARG: 'Básica',
+  BOL: 'Básica',
+  BRA: 'Superior',
+  PAR: 'GI2',
+  URU: 'GI1',
+  RNS: 'Intermedia',
 }
 
-function getCapacidadPorPais(year: number): Record<CarteraCountry, number> {
+function getCapacidadPorPais(period: PeriodDef): Record<CarteraCountry, number> {
   const out = {} as Record<CarteraCountry, number>
   for (const c of COUNTRY_ORDER) {
     const row = CARTERA_DATA.find(
-      (r) => r.country === c && r.year === year && r.quarter === 4,
+      (r) => r.country === c && r.year === period.year && r.quarter === period.quarter,
     )
     out[c] =
       (row?.porCobrar ?? 0) +
@@ -100,15 +109,15 @@ function FsButton({ fullscreen, onToggle, className = '' }: { fullscreen: boolea
 }
 
 // ─── Fullscreen-capable donut ───
-function FsDonut({ year }: { year: number }) {
+function FsDonut({ period }: { period: PeriodDef }) {
   const [fullscreen, setFullscreen] = useFullscreen()
-  const values = useMemo(() => getCapacidadPorPais(year), [year])
+  const values = useMemo(() => getCapacidadPorPais(period), [period])
   const size = fullscreen ? 360 : 140
 
   const content = (
     <div className={`fs-chart ${fullscreen ? 'fs-chart--fullscreen' : ''}`}>
       <div className="fs-chart__head">
-        <span className="fs-chart__label">{YEAR_LABEL[year]}</span>
+        <span className="fs-chart__label">{period.label}</span>
         <FsButton fullscreen={fullscreen} onToggle={() => setFullscreen((f) => !f)} />
       </div>
       <div className="fs-chart__body">
@@ -121,7 +130,7 @@ function FsDonut({ year }: { year: number }) {
 }
 
 // ─── Fullscreen-capable bar chart ───
-function FsBarChart({ year, unit }: { year: number; unit: 'mm' | 'pct' }) {
+function FsBarChart({ period, unit }: { period: PeriodDef; unit: 'mm' | 'pct' }) {
   const [fullscreen, setFullscreen] = useFullscreen()
   const w = fullscreen ? 1200 : 360
   const h = fullscreen ? 520 : 210
@@ -130,12 +139,12 @@ function FsBarChart({ year, unit }: { year: number; unit: 'mm' | 'pct' }) {
     <div className={`fs-chart ${fullscreen ? 'fs-chart--fullscreen' : ''}`}>
       <div className="fs-chart__head">
         <span className="fs-chart__label">
-          {YEAR_LABEL[year]} · Utilizada por calificación crediticia
+          {period.label} · Utilizada por calificación crediticia
         </span>
         <FsButton fullscreen={fullscreen} onToggle={() => setFullscreen((f) => !f)} />
       </div>
       <div className="fs-chart__body">
-        <RatingBarChart year={year} width={w} height={h} unit={unit} />
+        <RatingBarChart period={period} width={w} height={h} unit={unit} />
       </div>
     </div>
   )
@@ -146,16 +155,16 @@ function FsBarChart({ year, unit }: { year: number; unit: 'mm' | 'pct' }) {
 // ─── Bar chart: capacidad por bucket de rating, segmentada por país ───
 
 interface RatingBarChartProps {
-  year: number
+  period: PeriodDef
   width: number
   height: number
   unit: 'mm' | 'pct'
 }
 
-function RatingBarChart({ year, width, height, unit }: RatingBarChartProps) {
+function RatingBarChart({ period, width, height, unit }: RatingBarChartProps) {
   const [hover, setHover] = useState<{ bucket: Bucket; country: CarteraCountry } | null>(null)
 
-  const cap = useMemo(() => getCapacidadPorPais(year), [year])
+  const cap = useMemo(() => getCapacidadPorPais(period), [period])
   const yearTotal = useMemo(
     () => Object.values(cap).reduce((s, v) => s + v, 0),
     [cap],
@@ -165,7 +174,7 @@ function RatingBarChart({ year, width, height, unit }: RatingBarChartProps) {
     () =>
       BUCKETS.map((b) => {
         const segments = COUNTRY_ORDER.filter(
-          (c) => COUNTRY_BUCKET[year][c] === b,
+          (c) => BUCKET_BY_COUNTRY[c] === b,
         ).map((c) => {
           const v = cap[c]
           return {
@@ -178,7 +187,7 @@ function RatingBarChart({ year, width, height, unit }: RatingBarChartProps) {
         const rawTotal = segments.reduce((s, d) => s + d.rawValue, 0)
         return { bucket: b, segments, total, rawTotal }
       }),
-    [year, cap, unit, yearTotal],
+    [cap, unit, yearTotal],
   )
 
   const margin = { top: 8, right: 12, bottom: 28, left: 44 }
@@ -315,16 +324,16 @@ function UnifiedCard() {
   return (
     <Card padding="md" className="risk-capacity__unified">
       <div className="risk-capacity__year-labels">
-        {YEARS.map((y) => (
-          <span key={y} className="risk-capacity__year-label">
-            {YEAR_LABEL[y]}
+        {PERIODS.map((p) => (
+          <span key={p.id} className="risk-capacity__year-label">
+            {p.label}
           </span>
         ))}
       </div>
       <div className="risk-capacity__donut-row">
-        {YEARS.map((y) => (
-          <div key={y} className="risk-capacity__donut-wrap">
-            <FsDonut year={y} />
+        {PERIODS.map((p) => (
+          <div key={p.id} className="risk-capacity__donut-wrap">
+            <FsDonut period={p} />
           </div>
         ))}
       </div>
@@ -343,9 +352,9 @@ function UnifiedCard() {
         />
       </div>
       <div className="risk-capacity__bar-row">
-        {YEARS.map((y) => (
-          <div key={y} className="risk-capacity__bar-wrap">
-            <FsBarChart year={y} unit={unit} />
+        {PERIODS.map((p) => (
+          <div key={p.id} className="risk-capacity__bar-wrap">
+            <FsBarChart period={p} unit={unit} />
           </div>
         ))}
       </div>

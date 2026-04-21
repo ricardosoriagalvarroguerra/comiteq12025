@@ -77,6 +77,30 @@
   min-width: 0;
 }
 
+.donut-matrix__cell-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 50%;
+  border: 1px dashed var(--color-border-soft);
+  color: var(--color-text-subtle);
+}
+
+.donut-matrix__cell-empty-mark {
+  font-size: 20px;
+  font-weight: var(--font-bold);
+  line-height: 1;
+}
+
+.donut-matrix__cell-empty-note {
+  font-size: 9px;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
 .donut-matrix__cell-year {
   font-size: 10px;
   font-weight: var(--font-medium);
