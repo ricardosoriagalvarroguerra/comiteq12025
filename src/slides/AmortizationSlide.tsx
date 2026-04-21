@@ -640,8 +640,10 @@ function IfdMercadoCard({ title, data }: { title: string; data: IfdMercadoRow[] 
 }
 
 export function AmortizationSlide() {
+  const [notesOpen, setNotesOpen] = useState(false)
+
   return (
-    <div className="amort-slide">
+    <div className={`amort-slide ${notesOpen ? 'amort-slide--notes-open' : ''}`}>
       <TextCard
         eyebrow="4 · ENDEUDAMIENTO"
         title="Endeudamiento: Evolución y Proyecciones"
@@ -651,6 +653,67 @@ export function AmortizationSlide() {
         <IfdMercadoCard title="Flujos" data={FLUJOS_DATA} />
         <IfdMercadoCard title="Stock" data={STOCK_DATA} />
       </div>
+
+      <button
+        type="button"
+        className="amort-slide__notes-toggle"
+        onClick={() => setNotesOpen((o) => !o)}
+        aria-expanded={notesOpen}
+        aria-controls="amort-notes-panel"
+        aria-label={notesOpen ? 'Cerrar notas' : 'Abrir notas'}
+        title={notesOpen ? 'Cerrar notas' : 'Abrir notas'}
+      >
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          {notesOpen ? (
+            <path d="M10 3l-5 5 5 5" />
+          ) : (
+            <path d="M6 3l5 5-5 5" />
+          )}
+        </svg>
+        <span className="amort-slide__notes-toggle-label">
+          {notesOpen ? 'Cerrar' : 'Notas'}
+        </span>
+      </button>
+
+      <aside
+        id="amort-notes-panel"
+        className={`amort-slide__notes ${notesOpen ? 'is-open' : ''}`}
+        aria-hidden={!notesOpen}
+      >
+        <header className="amort-slide__notes-header">
+          <span className="amort-slide__notes-eyebrow">Contexto</span>
+          <h3 className="amort-slide__notes-title">Perfil de endeudamiento</h3>
+        </header>
+        <div className="amort-slide__notes-body">
+          <p>
+            El perfil de amortización muestra el calendario de pagos por año
+            segregando la deuda contratada hasta 2025 (gris) de la contratada
+            en Q1-2026 (rojo).
+          </p>
+          <ul>
+            <li>
+              <strong>2026–2032</strong>: concentración del servicio de deuda,
+              impulsada por las líneas vigentes con IFDs y las emisiones de
+              mercado 2026–2029.
+            </li>
+            <li>
+              <strong>Q2-Q4 2026</strong>: vencimientos remanentes del año por
+              <strong> USD 279 MM</strong>.
+            </li>
+            <li>
+              <strong>2030</strong>: pico asociado al vencimiento de CHF 2029
+              y MTN de larga duración.
+            </li>
+            <li>
+              <strong>Flujos y Stock</strong>: desagregados por IFD y Mercado,
+              con proyecciones para 2026 sombreadas en guiones.
+            </li>
+          </ul>
+          <p className="amort-slide__notes-footnote">
+            Fuente: Tesorería · USD Millones · corte al 31 de marzo 2026.
+          </p>
+        </div>
+      </aside>
     </div>
   )
 }

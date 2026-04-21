@@ -1,10 +1,28 @@
 .debt-analysis {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: calc(100% + var(--space-8));
+  margin-left: calc(-1 * var(--space-4));
+  margin-right: calc(-1 * var(--space-4));
   gap: var(--space-3);
   flex: 1 1 auto;
   min-height: 0;
+}
+
+@media (min-width: 1024px) {
+  .debt-analysis {
+    width: calc(100% + var(--space-16));
+    margin-left: calc(-1 * var(--space-8));
+    margin-right: calc(-1 * var(--space-8));
+  }
+}
+
+@media (min-width: 1280px) {
+  .debt-analysis {
+    width: calc(100% + var(--space-20));
+    margin-left: calc(-1 * var(--space-10));
+    margin-right: calc(-1 * var(--space-10));
+  }
 }
 
 .debt-analysis > .text-card {
