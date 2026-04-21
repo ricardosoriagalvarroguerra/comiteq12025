@@ -113,6 +113,22 @@
   white-space: nowrap;
 }
 
+/* Highlight rows: operaciones contratadas en 2026 (red border) */
+.debt-sources__tables .table-card__tr--highlight .table-card__td {
+  background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+  border-top: 1.5px solid var(--color-accent);
+  border-bottom: 1.5px solid var(--color-accent);
+  font-weight: var(--font-semibold);
+}
+
+.debt-sources__tables .table-card__tr--highlight .table-card__td:first-child {
+  border-left: 1.5px solid var(--color-accent);
+}
+
+.debt-sources__tables .table-card__tr--highlight .table-card__td:last-child {
+  border-right: 1.5px solid var(--color-accent);
+}
+
 .debt-sources__tables .table-card .table-card__th {
   font-size: 10px;
   letter-spacing: var(--tracking-wide);

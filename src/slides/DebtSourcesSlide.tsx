@@ -21,10 +21,10 @@ const ifdRows = [
   { n: 6, instrumento: 'AFD 2 - Préstamo (CZZ 2823)', circulante: '31.15', disponible: '0.00', total: '31.15', spread: '123.6' },
   { n: 7, instrumento: 'ICO 1 - Tramo 1 - Línea 1', circulante: '1.11', disponible: '0.00', total: '1.11', spread: '87.8' },
   { n: 8, instrumento: 'ICO 2 - Línea 2', circulante: '11.90', disponible: '0.00', total: '11.90', spread: '98.3' },
-  { n: 9, instrumento: 'ICO 3 - Línea', circulante: '25.00', disponible: '0.00', total: '25.00', spread: '84.3' },
+  { n: 9, instrumento: 'ICO 3 - Línea', circulante: '25.00', disponible: '0.00', total: '25.00', spread: '84.3', isHighlight: true },
   { n: 10, instrumento: 'KfW - Préstamo (29876)', circulante: '40.12', disponible: '0.00', total: '40.12', spread: '92.1' },
   { n: 11, instrumento: 'CDP 1', circulante: '27.50', disponible: '0.00', total: '27.50', spread: '130.0' },
-  { n: 12, instrumento: 'CDP 2', circulante: '35.00', disponible: '15.00', total: '50.00', spread: '124.0' },
+  { n: 12, instrumento: 'CDP 2', circulante: '35.00', disponible: '15.00', total: '50.00', spread: '124.0', isHighlight: true },
   { n: '', instrumento: 'TOTAL', circulante: '526.14', disponible: '65.00', total: '591.14', spread: '', isTotal: true },
 ]
 

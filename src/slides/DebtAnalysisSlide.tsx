@@ -513,12 +513,11 @@ export function DebtAnalysisSlide() {
 
   return (
     <div className="debt-analysis">
-      <div className="debt-analysis__text">
-        <TextCard
-          eyebrow="Análisis de endeudamiento"
-          title="Análisis de Endeudamiento"
-        />
-      </div>
+      <TextCard
+        eyebrow="4 · ENDEUDAMIENTO"
+        title="Análisis de Endeudamiento"
+        description="Stock y Spread sobre SOFR por fuente de fondeo"
+      />
       <div className="debt-analysis__chart">
         {fullscreen ? createPortal(card, document.body) : card}
       </div>

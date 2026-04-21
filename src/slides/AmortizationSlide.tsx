@@ -12,7 +12,7 @@ interface AmortRow {
 }
 
 const AMORT_DATA: AmortRow[] = [
-  { anio: '2026', resto: 310.18, adq2026: 0.00 },
+  { anio: 'Q2-Q426', resto: 279.00, adq2026: 0.00 },
   { anio: '2027', resto: 334.44, adq2026: 3.18 },
   { anio: '2028', resto: 342.37, adq2026: 6.36 },
   { anio: '2029', resto: 271.02, adq2026: 6.66 },

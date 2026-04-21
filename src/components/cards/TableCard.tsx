@@ -13,6 +13,7 @@ interface TableColumn {
 interface TableRow {
   [key: string]: string | number | boolean | ReactNode | undefined
   isTotal?: boolean
+  isHighlight?: boolean
 }
 
 interface TableCardProps {
@@ -80,7 +81,7 @@ export function TableCard({
               {rows.map((row, i) => (
                 <tr
                   key={i}
-                  className={`table-card__tr ${row.isTotal ? 'table-card__tr--total' : ''}`}
+                  className={`table-card__tr ${row.isTotal ? 'table-card__tr--total' : ''} ${row.isHighlight ? 'table-card__tr--highlight' : ''}`}
                 >
                   {columns.map((col, ci) => (
                     <td
