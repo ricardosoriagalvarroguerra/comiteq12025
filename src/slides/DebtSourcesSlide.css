@@ -87,14 +87,16 @@
 
 .debt-sources__tables--dual {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-3);
+  align-items: stretch;
 }
 
 .debt-sources__tables--dual .table-card {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  height: 100%;
 }
 
 .debt-sources__tables--dual .table-card__body {
