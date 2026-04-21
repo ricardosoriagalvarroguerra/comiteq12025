@@ -36,119 +36,308 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-card, 10px);
+  background: var(--color-surface);
 }
 
 .prevision-slide__table-body {
   overflow-x: auto;
   overflow-y: auto;
-  max-height: 340px;
+  max-height: 280px;
 }
 
 .prevision-slide__tbl {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
 
+/* Header: two-row, group banner + column labels */
+.prevision-slide__tbl thead tr {
+  background: var(--color-surface);
+}
+
 .prevision-slide__tbl .table-card__th {
-  padding: var(--space-1-5) var(--space-2);
+  padding: 6px var(--space-2);
   font-size: 10px;
   letter-spacing: var(--tracking-wide);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-muted);
   text-align: center;
   white-space: nowrap;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border-soft);
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .prevision-slide__group-row .prevision-slide__group {
-  background: color-mix(in srgb, var(--color-surface-alt) 70%, transparent);
-  border-bottom: 1px solid var(--color-border-soft);
+  background: color-mix(in srgb, var(--color-accent) 5%, var(--color-surface));
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 18%, var(--color-border-soft));
   text-transform: uppercase;
-  font-weight: var(--font-semibold);
-  color: var(--color-text-muted);
+  font-size: 10px;
+  font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-accent);
 }
 
+.prevision-slide__group-row .prevision-slide__sticky-col {
+  background: var(--color-surface);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 18%, var(--color-border-soft));
+}
+
+/* Row cells */
 .prevision-slide__tbl .table-card__td {
-  padding: 4px var(--space-2);
+  padding: 6px var(--space-2);
   font-size: var(--text-2xs);
   line-height: var(--leading-snug);
   white-space: nowrap;
   color: var(--color-text);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border-soft) 60%, transparent);
+  transition: background var(--duration-fast) var(--ease-default);
 }
 
+.prevision-slide__tbl tbody tr:last-child .table-card__td {
+  border-bottom: none;
+}
+
+/* Zebra stripes on regular rows */
+.prevision-slide__tbl tbody tr.prevision-slide__tr:nth-child(odd):not(.prevision-slide__tr--subtotal):not(.table-card__tr--total) .table-card__td {
+  background: color-mix(in srgb, var(--color-surface-alt) 32%, transparent);
+}
+
+.prevision-slide__tbl tbody tr.prevision-slide__tr:nth-child(odd):not(.prevision-slide__tr--subtotal):not(.table-card__tr--total) .prevision-slide__sticky-col {
+  background: color-mix(in srgb, var(--color-surface-alt) 32%, var(--color-surface));
+}
+
+/* Hover highlight */
+.prevision-slide__tbl tbody tr.prevision-slide__tr:hover:not(.prevision-slide__tr--subtotal):not(.table-card__tr--total) .table-card__td {
+  background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+}
+
+.prevision-slide__tbl tbody tr.prevision-slide__tr:hover:not(.prevision-slide__tr--subtotal):not(.table-card__tr--total) .prevision-slide__sticky-col {
+  background: color-mix(in srgb, var(--color-accent) 6%, var(--color-surface));
+}
+
+/* Sticky left column for País */
 .prevision-slide__sticky-col {
   position: sticky;
   left: 0;
   background: var(--color-surface);
   z-index: 1;
   text-align: left !important;
-  min-width: 132px;
+  min-width: 148px;
+  border-right: 1px solid var(--color-border-soft);
 }
 
 .prevision-slide__code {
   display: inline-block;
-  min-width: 42px;
-  font-weight: var(--font-semibold);
-  color: var(--color-text-secondary);
+  min-width: 48px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full, 999px);
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-surface-alt));
+  color: var(--color-accent);
+  font-weight: var(--font-bold);
   letter-spacing: var(--tracking-wide);
-  font-size: 10px;
+  font-size: 9px;
   text-transform: uppercase;
+  text-align: center;
   margin-right: var(--space-2);
 }
 
 .prevision-slide__pais {
   font-size: var(--text-2xs);
   color: var(--color-text-muted);
+  letter-spacing: 0.01em;
 }
 
+/* Number cells */
 .prevision-slide__num {
   text-align: right !important;
+  font-variant-numeric: tabular-nums;
 }
 
+/* Rating cells */
 .prevision-slide__rating {
   text-align: center !important;
-  font-weight: var(--font-medium);
+  font-weight: var(--font-semibold);
   color: var(--color-text-secondary);
+  font-size: 10px;
+  letter-spacing: 0.02em;
 }
 
+/* Variation coloring */
 .prevision-slide__num--neg {
   color: var(--color-accent);
+  font-weight: var(--font-semibold);
 }
 
 .prevision-slide__num--pos {
   color: var(--color-success, #2d7a3d);
+  font-weight: var(--font-semibold);
 }
 
 .prevision-slide__num--zero {
   color: var(--color-text-subtle);
 }
 
+/* Group separators between column bands */
+.prevision-slide__tbl th:nth-child(3),   /* row 1: Calificación group (after País + Cartera banner) */
+.prevision-slide__tbl th:nth-child(4),   /* row 1: Previsión group */
+.prevision-slide__tbl th:nth-child(5) {  /* row 1: Prev. c/USD 1.000 */
+  border-left: 1px solid var(--color-border-soft);
+}
+
+.prevision-slide__tbl thead tr:nth-child(2) th:nth-child(4),
+.prevision-slide__tbl thead tr:nth-child(2) th:nth-child(8),
+.prevision-slide__tbl thead tr:nth-child(2) th:nth-child(11) {
+  border-left: 1px solid var(--color-border-soft);
+}
+
+.prevision-slide__tbl tbody td:nth-child(5),
+.prevision-slide__tbl tbody td:nth-child(9),
+.prevision-slide__tbl tbody td:nth-child(12) {
+  border-left: 1px solid var(--color-border-soft);
+}
+
+/* Subtle highlight for reference date columns (31/3/26) */
+.prevision-slide__tbl tbody td:nth-child(3),
+.prevision-slide__tbl tbody td:nth-child(10) {
+  background-color: color-mix(in srgb, var(--color-accent) 3%, transparent);
+  font-weight: var(--font-semibold);
+}
+
+/* Subtotal rows (SOB, NS) */
 .prevision-slide__tr--subtotal .table-card__td,
 .prevision-slide__tr--subtotal .prevision-slide__sticky-col {
-  background: color-mix(in srgb, var(--color-surface-alt) 55%, transparent);
+  background: color-mix(in srgb, var(--color-surface-alt) 65%, transparent) !important;
   font-weight: var(--font-semibold);
   color: var(--color-text);
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+}
+
+.prevision-slide__tr--subtotal .prevision-slide__code {
+  background: var(--color-text-secondary);
+  color: var(--color-surface);
+}
+
+/* Total row */
+.prevision-slide__tbl .table-card__tr--total .table-card__td,
+.prevision-slide__tbl .table-card__tr--total .prevision-slide__sticky-col {
+  background: color-mix(in srgb, var(--color-accent) 7%, var(--color-surface)) !important;
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  border-top: 2px solid var(--color-accent);
+  font-size: var(--text-2xs);
+}
+
+.prevision-slide__tbl .table-card__tr--total .prevision-slide__code {
+  background: var(--color-accent);
+  color: var(--color-surface);
 }
 
 /* ── Chart ── */
-.prevision-slide__chart {
+.prevision-slide__chart-card {
   flex: 1 1 auto;
-  min-height: 220px;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
+  gap: var(--space-2);
+  min-height: 260px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: none;
 }
 
-.prevision-slide__chart > .chart-placeholder {
-  flex: 1;
+.prevision-slide__chart-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.prevision-slide__chart-eyebrow {
+  font-size: 10px;
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-accent);
+}
+
+.prevision-slide__chart-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+.prevision-slide__chart-unit {
+  margin-left: auto;
+  font-size: var(--text-2xs);
+  color: var(--color-text-subtle);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.prevision-slide__chart-body {
+  flex: 1 1 auto;
   min-height: 0;
+  display: flex;
 }
 
-.prevision-slide__chart .chart-placeholder__canvas {
-  background: transparent;
+.ratio-chart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
 }
 
-.prevision-slide__chart .chart-placeholder__canvas::before {
-  display: none;
+.ratio-chart__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ratio-chart__grid {
+  stroke: var(--color-border-soft);
+  stroke-dasharray: 2 4;
+}
+
+.ratio-chart__axis-line {
+  stroke: var(--color-border);
+}
+
+.ratio-chart__axis-label {
+  font-size: 10px;
+  fill: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ratio-chart__line {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ratio-chart__point {
+  fill: var(--color-accent);
+  stroke: var(--color-surface);
+  stroke-width: 1.5;
+}
+
+.ratio-chart__data-label {
+  font-size: 10px;
+  font-weight: var(--font-semibold);
+  fill: var(--color-text);
+  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 768px) {

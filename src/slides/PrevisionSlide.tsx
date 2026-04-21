@@ -1,5 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
 import { TextCard } from '@/components/cards/TextCard'
-import { ChartPlaceholder } from '@/components/cards/ChartPlaceholder'
 import { Card } from '@/components/ui/Card'
 import './PrevisionSlide.css'
 
@@ -101,25 +101,129 @@ export function PrevisionSlide() {
         </div>
       </Card>
 
-      <div className="prevision-slide__chart">
-        <ChartPlaceholder
-          title="Ratio Previsión / Cartera por cobrar"
-          subtitle="Evolución trimestral"
-          chartType="line"
-          unit="%"
-          height="full"
-          data={{
-            labels: RATIO_LABELS,
-            series: [
-              {
-                name: 'Ratio',
-                values: RATIO_VALUES,
-                color: 'var(--color-accent)',
-              },
-            ],
-          }}
+      <Card padding="md" className="prevision-slide__chart-card">
+        <div className="prevision-slide__chart-header">
+          <span className="prevision-slide__chart-eyebrow">Evolución trimestral</span>
+          <h3 className="prevision-slide__chart-title">Ratio Previsión / Cartera por cobrar</h3>
+          <span className="prevision-slide__chart-unit">%</span>
+        </div>
+        <div className="prevision-slide__chart-body">
+          <RatioLineChart labels={RATIO_LABELS} values={RATIO_VALUES} />
+        </div>
+      </Card>
+    </div>
+  )
+}
+
+function RatioLineChart({ labels, values }: { labels: string[]; values: number[] }) {
+  const wrapRef = useRef<HTMLDivElement | null>(null)
+  const [size, setSize] = useState({ w: 640, h: 260 })
+
+  useEffect(() => {
+    if (!wrapRef.current) return
+    const el = wrapRef.current
+    const obs = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect
+      if (width > 0 && height > 0) setSize({ w: width, h: height })
+    })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  const margin = { top: 24, right: 24, bottom: 28, left: 42 }
+  const innerW = Math.max(10, size.w - margin.left - margin.right)
+  const innerH = Math.max(10, size.h - margin.top - margin.bottom)
+
+  const rawMin = Math.min(...values)
+  const rawMax = Math.max(...values)
+  const pad = Math.max(0.05, (rawMax - rawMin) * 0.25)
+  const yMin = Math.max(0, Math.floor((rawMin - pad) * 10) / 10)
+  const yMax = Math.ceil((rawMax + pad) * 10) / 10
+  const yRange = yMax - yMin || 1
+
+  const stepX = values.length > 1 ? innerW / (values.length - 1) : 0
+  const xAt = (i: number) => margin.left + i * stepX
+  const yAt = (v: number) => margin.top + innerH * (1 - (v - yMin) / yRange)
+
+  const tickCount = 5
+  const yTicks = Array.from({ length: tickCount + 1 }, (_, i) => yMin + (yRange * i) / tickCount)
+
+  const path = values
+    .map((v, i) => `${i === 0 ? 'M' : 'L'}${xAt(i).toFixed(1)},${yAt(v).toFixed(1)}`)
+    .join(' ')
+
+  return (
+    <div className="ratio-chart" ref={wrapRef}>
+      <svg viewBox={`0 0 ${size.w} ${size.h}`} className="ratio-chart__svg" role="img">
+        {yTicks.map((t) => (
+          <g key={t}>
+            <line
+              x1={margin.left}
+              x2={margin.left + innerW}
+              y1={yAt(t)}
+              y2={yAt(t)}
+              className="ratio-chart__grid"
+            />
+            <text
+              x={margin.left - 8}
+              y={yAt(t)}
+              dy="0.32em"
+              textAnchor="end"
+              className="ratio-chart__axis-label"
+            >
+              {t.toFixed(2).replace('.', ',')}%
+            </text>
+          </g>
+        ))}
+
+        <line
+          x1={margin.left}
+          x2={margin.left + innerW}
+          y1={margin.top + innerH}
+          y2={margin.top + innerH}
+          className="ratio-chart__axis-line"
         />
-      </div>
+        <line
+          x1={margin.left}
+          x2={margin.left}
+          y1={margin.top}
+          y2={margin.top + innerH}
+          className="ratio-chart__axis-line"
+        />
+
+        {labels.map((lbl, i) => (
+          <text
+            key={lbl}
+            x={xAt(i)}
+            y={margin.top + innerH + 16}
+            textAnchor="middle"
+            className="ratio-chart__axis-label"
+          >
+            {lbl}
+          </text>
+        ))}
+
+        <path d={path} className="ratio-chart__line" />
+
+        {values.map((v, i) => (
+          <g key={`pt-${i}`}>
+            <circle
+              cx={xAt(i)}
+              cy={yAt(v)}
+              r={4}
+              className="ratio-chart__point"
+            />
+            <text
+              x={xAt(i)}
+              y={yAt(v) - 9}
+              textAnchor="middle"
+              className="ratio-chart__data-label"
+            >
+              {v.toFixed(2).replace('.', ',')}%
+            </text>
+          </g>
+        ))}
+      </svg>
     </div>
   )
 }
