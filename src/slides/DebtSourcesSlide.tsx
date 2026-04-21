@@ -13,27 +13,28 @@ const ifdColumns = [
 ]
 
 const ifdRows = [
-  { n: 1, instrumento: 'AFD 1 - Préstamo (CZZ 2105)', circulante: '13.6', disponible: '0.0', total: '13.6', spread: '179.8' },
-  { n: 2, instrumento: 'AFD 2 - Préstamo (CZZ 2823)', circulante: '33.1', disponible: '0.0', total: '33.1', spread: '123.6' },
-  { n: 3, instrumento: 'BEI 1 - Tramo 1 - Línea (86645)', circulante: '5.6', disponible: '0.0', total: '5.6', spread: '106.0' },
-  { n: 4, instrumento: 'BEI 1 - Tramo 2 - Línea (86645)', circulante: '6.0', disponible: '0.0', total: '6.0', spread: '95.0' },
-  { n: 5, instrumento: 'BEI 1 - Tramo 3 - Línea (86645)', circulante: '10.0', disponible: '0.0', total: '10.0', spread: '87.2' },
-  { n: 6, instrumento: 'BEI 1 - Tramo 4 - Línea (86645)', circulante: '20.0', disponible: '0.0', total: '20.0', spread: '81.3' },
-  { n: 7, instrumento: 'BEI 1 - Tramo 5 - Línea (86645)', circulante: '18.0', disponible: '0.0', total: '18.0', spread: '93.1' },
-  { n: 8, instrumento: 'BID 1 - Préstamo (4377/OC-RG)', circulante: '85.0', disponible: '0.0', total: '85.0', spread: '121.0' },
-  { n: 9, instrumento: 'BID 2 - Préstamo (5442/OC-RG)', circulante: '100.0', disponible: '0.0', total: '100.0', spread: '121.0' },
-  { n: 10, instrumento: 'CAF 3 - Línea Revolvente', circulante: '0.0', disponible: '25.0', total: '25.0', spread: '—' },
-  { n: 11, instrumento: 'CAF 3 - Tramo 1 - Línea Revolvente', circulante: '75.0', disponible: '0.0', total: '75.0', spread: '175.0' },
-  { n: 12, instrumento: 'CAF 3 - Tramo 2 - Línea Revolvente', circulante: '50.0', disponible: '0.0', total: '50.0', spread: '135.0' },
-  { n: 13, instrumento: 'CDP 1', circulante: '27.5', disponible: '0.0', total: '27.5', spread: '130.0' },
-  { n: 14, instrumento: 'CDP 2', circulante: '35.0', disponible: '15.0', total: '50.0', spread: '124.0', isHighlight: true },
-  { n: 15, instrumento: 'ICO 1 - Tramo 1 - Línea 1', circulante: '1.1', disponible: '0.0', total: '1.1', spread: '87.8' },
-  { n: 16, instrumento: 'ICO 2 - Tramo 1 - Línea 2', circulante: '6.7', disponible: '0.0', total: '6.7', spread: '96.0' },
-  { n: 17, instrumento: 'ICO 2 - Tramo 2 - Línea 2', circulante: '5.5', disponible: '0.0', total: '5.5', spread: '101.0' },
-  { n: 18, instrumento: 'ICO 3 - Línea', circulante: '7.2', disponible: '0.0', total: '7.2', spread: '—', isHighlight: true },
-  { n: 19, instrumento: 'ICO 3.1 - Línea 1', circulante: '17.8', disponible: '0.0', total: '17.8', spread: '88.0' },
-  { n: 20, instrumento: 'KfW - Préstamo (29876)', circulante: '40.1', disponible: '0.0', total: '40.1', spread: '93.8' },
-  { n: '', instrumento: 'TOTAL', circulante: '557.2', disponible: '40.0', total: '597.2', spread: '', isTotal: true },
+  { n: 1, instrumento: 'AFD 1 - Préstamo (CZZ 2105)', circulante: '12.73', disponible: '0.00', total: '12.73', spread: '179.8' },
+  { n: 2, instrumento: 'AFD 2 - Préstamo (CZZ 2823)', circulante: '31.15', disponible: '0.00', total: '31.15', spread: '123.6' },
+  { n: 3, instrumento: 'BEI 1 - Tramo 1 - Línea (86645)', circulante: '5.36', disponible: '0.00', total: '5.36', spread: '106.0' },
+  { n: 4, instrumento: 'BEI 1 - Tramo 2 - Línea (86645)', circulante: '5.79', disponible: '0.00', total: '5.79', spread: '95.0' },
+  { n: 5, instrumento: 'BEI 1 - Tramo 3 - Línea (86645)', circulante: '10.00', disponible: '0.00', total: '10.00', spread: '87.2' },
+  { n: 6, instrumento: 'BEI 1 - Tramo 4 - Línea (86645)', circulante: '20.00', disponible: '0.00', total: '20.00', spread: '81.3' },
+  { n: 7, instrumento: 'BEI 1 - Tramo 5 - Línea (86645)', circulante: '18.00', disponible: '0.00', total: '18.00', spread: '93.1' },
+  { n: 8, instrumento: 'BID 1 - Préstamo (4377/OC-RG)', circulante: '82.50', disponible: '0.00', total: '82.50', spread: '121.0' },
+  { n: 9, instrumento: 'BID 2 - Préstamo (5442/OC-RG)', circulante: '100.00', disponible: '0.00', total: '100.00', spread: '121.0' },
+  { n: 10, instrumento: 'CAF 3 - Línea Revolvente', circulante: '0.00', disponible: '50.00', total: '50.00', spread: '—' },
+  { n: 11, instrumento: 'CAF 3 - Tramo 1 - Línea Revolvente', circulante: '50.00', disponible: '0.00', total: '50.00', spread: '175.0' },
+  { n: 12, instrumento: 'CAF 3 - Tramo 2 - Línea Revolvente', circulante: '50.00', disponible: '0.00', total: '50.00', spread: '135.0' },
+  { n: 13, instrumento: 'CDP 1', circulante: '27.50', disponible: '0.00', total: '27.50', spread: '130.0' },
+  { n: 14, instrumento: 'CDP 2', circulante: '35.00', disponible: '15.00', total: '50.00', spread: '124.0', isHighlight: true },
+  { n: 15, instrumento: 'ICO 1 - Tramo 1 - Línea 1', circulante: '1.11', disponible: '0.00', total: '1.11', spread: '87.8' },
+  { n: 16, instrumento: 'ICO 2 - Tramo 1 - Línea 2', circulante: '6.40', disponible: '0.00', total: '6.40', spread: '96.0' },
+  { n: 17, instrumento: 'ICO 2 - Tramo 2 - Línea 2', circulante: '5.50', disponible: '0.00', total: '5.50', spread: '101.0' },
+  { n: 18, instrumento: 'ICO 3 - Línea', circulante: '0.00', disponible: '0.00', total: '0.00', spread: '—' },
+  { n: 19, instrumento: 'ICO 3.1 - Línea 1', circulante: '17.78', disponible: '0.00', total: '17.78', spread: '88.0' },
+  { n: 20, instrumento: 'ICO 3.2 - Línea 2 (nuevo Q1-2026)', circulante: '7.22', disponible: '0.00', total: '7.22', spread: '75.0', isHighlight: true },
+  { n: 21, instrumento: 'KfW - Préstamo (29876)', circulante: '40.12', disponible: '0.00', total: '40.12', spread: '92.1' },
+  { n: '', instrumento: 'TOTAL', circulante: '526.14', disponible: '65.00', total: '591.14', spread: '', isTotal: true },
 ]
 
 const mercadoColumns = [
@@ -70,7 +71,7 @@ const mercadoRows = [
   { n: '', instrumento: 'TOTAL', monto: '1,563.6', spread: '159.7', isTotal: true },
 ]
 
-const IFD_CIRCULANTE_TOTAL = 557.20
+const IFD_CIRCULANTE_TOTAL = 526.14
 const MERCADO_TOTAL = 1563.60
 const DEUDA_TOTAL = IFD_CIRCULANTE_TOTAL + MERCADO_TOTAL
 
