@@ -3,27 +3,27 @@ import { TableCard } from '@/components/cards/TableCard'
 import './VigenciaSlide.css'
 
 const etapaColumns = [
-  { key: 'codigo', label: 'Código', align: 'left' as const },
+  { key: 'codigo', label: 'Instrumento', align: 'left' as const },
   { key: 'nombre', label: 'Nombre', align: 'left' as const },
-  { key: 'monto', label: 'Monto (USD MM)', align: 'center' as const },
-  { key: 'previsibilidad', label: 'Previsibilidad', align: 'center' as const },
+  { key: 'moneda', label: 'Moneda', align: 'center' as const },
+  { key: 'monto', label: 'Monto (USD MM)', align: 'right' as const },
 ]
 
 const etapaRows = [
-  { codigo: 'ARG-65/2025 II', nombre: 'AGUA POTABLE MENDOZA', monto: '25,00', previsibilidad: '' },
-  { codigo: 'ARG-65/2025 III', nombre: 'AGUA POTABLE MENDOZA', monto: '25,00', previsibilidad: '' },
-  { codigo: 'BOL-38/2024 II', nombre: 'GENERACIÓN EMPLEO IV', monto: '50,00', previsibilidad: '' },
-  { codigo: 'BOL-39/2024 II', nombre: 'INFRAESTRUCTURA COMPLEMENTARIA', monto: '25,00', previsibilidad: '' },
-  { codigo: 'PAR-27/2019 II', nombre: 'YPEJHÚ', monto: '90,00', previsibilidad: '' },
-  { codigo: 'PAR-28/2020 II', nombre: 'BIOCEÁNICO', monto: '110,00', previsibilidad: <strong>A</strong> },
-  { codigo: 'PAR-28/2020 III', nombre: 'BIOCEÁNICO', monto: '110,00', previsibilidad: '' },
-  { codigo: 'URU-25/2024 II', nombre: 'UNIVERSALIZACIÓN DEL SANEAMIENTO', monto: '120,00', previsibilidad: <strong>A</strong> },
-  { codigo: 'URU-25/2024 III', nombre: 'UNIVERSALIZACIÓN DEL SANEAMIENTO', monto: '125,00', previsibilidad: '' },
-  { codigo: 'URU-25/2024 IV', nombre: 'UNIVERSALIZACIÓN DEL SANEAMIENTO', monto: '20,00', previsibilidad: '' },
-  { codigo: 'URU-26/2024 II', nombre: 'CAJA BANCARIA', monto: '25,00', previsibilidad: '' },
-  { codigo: 'URU-27/2024 II', nombre: 'SANEAMIENTO MALDONADO', monto: '22,54', previsibilidad: <strong>A</strong> },
-  { codigo: 'URU-27/2024 III', nombre: 'SANEAMIENTO MALDONADO', monto: '14,41', previsibilidad: '' },
-  { codigo: 'URU-27/2024 IV', nombre: 'SANEAMIENTO MALDONADO', monto: '5,09', previsibilidad: '' },
+  { codigo: 'ARG-65/2025 II ETAPA', nombre: 'AGUA POTABLE MENDOZA', moneda: 'USD', monto: '25,00' },
+  { codigo: 'ARG-65/2025 III ETAPA', nombre: 'AGUA POTABLE MENDOZA', moneda: 'USD', monto: '25,00' },
+  { codigo: 'BOL-38/2024 II ETAPA', nombre: 'GENERACIÓN EMPLEO IV', moneda: 'USD', monto: '50,00' },
+  { codigo: 'BOL-39/2024 II ETAPA', nombre: 'INFRAESTRUCTURA COMPLEMENTARIA', moneda: 'USD', monto: '25,00' },
+  { codigo: 'PAR-27/2019 II ETAPA', nombre: 'YPEJHÚ', moneda: 'USD', monto: '90,00' },
+  { codigo: 'PAR-28/2020 II ETAPA', nombre: 'BIOCEÁNICO', moneda: 'USD', monto: '110,00' },
+  { codigo: 'PAR-28/2020 III ETAPA', nombre: 'BIOCEÁNICO', moneda: 'USD', monto: '110,00' },
+  { codigo: 'URU-25/2024 II ETAPA', nombre: 'UNIVERSALIZACIÓN DEL SANEAMIENTO', moneda: 'USD', monto: '120,00' },
+  { codigo: 'URU-25/2024 III ETAPA', nombre: 'UNIVERSALIZACIÓN DEL SANEAMIENTO', moneda: 'USD', monto: '125,00' },
+  { codigo: 'URU-25/2024 IV ETAPA', nombre: 'UNIVERSALIZACIÓN DEL SANEAMIENTO', moneda: 'USD', monto: '20,00' },
+  { codigo: 'URU-26/2024 II ETAPA', nombre: 'CAJA BANCARIA', moneda: 'USD', monto: '25,00' },
+  { codigo: 'URU-27/2024 II ETAPA', nombre: 'SANEAMIENTO MALDONADO', moneda: 'USD', monto: '22,54' },
+  { codigo: 'URU-27/2024 III ETAPA', nombre: 'SANEAMIENTO MALDONADO', moneda: 'USD', monto: '14,41' },
+  { codigo: 'URU-27/2024 IV ETAPA', nombre: 'SANEAMIENTO MALDONADO', moneda: 'USD', monto: '5,09' },
 ]
 
 const aprobadaColumns = [
@@ -34,7 +34,6 @@ const aprobadaColumns = [
 ]
 
 const aprobadaRows = [
-  { codigo: 'ARG-064#1', nombre: 'BIOCEÁNICO SALTA', monto: '35,00', previsibilidad: '' },
   { codigo: 'ARG-066#1', nombre: 'INFRAESTRUCTURA PRIORITARIA CHACO', monto: '30,00', previsibilidad: '' },
   { codigo: 'BOL-038#1', nombre: 'GENERACIÓN EMPLEO IV', monto: '50,00', previsibilidad: '' },
   { codigo: 'BRA-041#1', nombre: 'FLORIANÓPOLIS', monto: '50,00', previsibilidad: '' },
@@ -45,7 +44,7 @@ const aprobadaRows = [
 ]
 
 const TOTAL_ETAPA = 767.04
-const TOTAL_APROBADA = 313.80
+const TOTAL_APROBADA = 278.80
 
 const nfAmount = new Intl.NumberFormat('es-ES', {
   minimumFractionDigits: 2,
