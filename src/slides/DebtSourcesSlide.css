@@ -97,26 +97,74 @@
   flex-direction: column;
   min-height: 0;
   height: 100%;
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-card, 10px);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.debt-sources__tables--dual .table-card__header {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-soft);
+  flex-shrink: 0;
 }
 
 .debt-sources__tables--dual .table-card__body {
   flex: 1 1 auto;
   min-height: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.debt-sources__tables--dual .table-card__table {
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .debt-sources__tables .table-card .table-card__th,
 .debt-sources__tables .table-card .table-card__td {
-  padding: 3px var(--space-1-5);
+  padding: 5px var(--space-2);
   font-size: 10.5px;
   line-height: var(--leading-snug);
   white-space: nowrap;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border-soft) 60%, transparent);
 }
 
 .debt-sources__tables .table-card .table-card__th {
   font-size: 9px;
-  letter-spacing: var(--tracking-wide);
+  font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-soft);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Zebra stripes */
+.debt-sources__tables .table-card__tr:nth-child(odd):not(.table-card__tr--total):not(.table-card__tr--highlight) .table-card__td {
+  background: color-mix(in srgb, var(--color-surface-alt) 30%, transparent);
+}
+
+/* Hover row */
+.debt-sources__tables .table-card__tr:hover:not(.table-card__tr--total):not(.table-card__tr--highlight) .table-card__td {
+  background: color-mix(in srgb, var(--color-accent) 5%, transparent);
+}
+
+/* Last row no bottom border */
+.debt-sources__tables .table-card__tr:last-child .table-card__td {
+  border-bottom: none;
+}
+
+/* Total row emphasis */
+.debt-sources__tables .table-card__tr--total .table-card__td {
+  background: color-mix(in srgb, var(--color-accent) 7%, var(--color-surface));
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  border-top: 2px solid var(--color-accent);
+  font-size: 11px;
 }
 
 /* Instrumento column wraps; numeric columns stay tight */
