@@ -4,7 +4,6 @@ import { Card } from '@/components/ui/Card'
 import './DebtSourcesSlide.css'
 
 const ifdColumns = [
-  { key: 'n', label: '#', align: 'center' as const, width: '36px' },
   { key: 'instrumento', label: 'Instrumento', align: 'left' as const },
   { key: 'circulante', label: 'Circulante (USD MM)', align: 'center' as const },
   { key: 'disponible', label: 'Disponible (USD MM)', align: 'center' as const },
@@ -38,7 +37,6 @@ const ifdRows = [
 ]
 
 const mercadoColumns = [
-  { key: 'n', label: '#', align: 'center' as const, width: '36px' },
   { key: 'instrumento', label: 'Instrumento', align: 'left' as const },
   { key: 'monto', label: 'Monto (USD MM)', align: 'center' as const },
   { key: 'spread', label: 'Spread (pbs)', align: 'center' as const },
