@@ -4,65 +4,132 @@
   width: 100%;
   flex: 1 1 auto;
   min-height: 0;
-  gap: var(--space-6);
-}
-
-.debt-auth__text {
-  display: flex;
-  flex-direction: column;
-}
-
-.debt-auth__text > * {
-  flex: 1;
-}
-
-@media (min-width: 1024px) {
-  .debt-auth {
-    flex-direction: row;
-    align-items: stretch;
-  }
-
-  .debt-auth__text {
-    flex: 0 0 280px;
-  }
-
-  .debt-auth__right {
-    flex: 1;
-    min-width: 0;
-  }
-}
-
-.debt-auth__right {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  min-height: 0;
-}
-
-.debt-auth__right > * {
-  flex: 1 1 0;
-  min-height: 0;
-}
-
-.debt-auth__donut-card {
-  display: flex;
-  flex-direction: column;
   gap: var(--space-4);
 }
 
-.debt-auth__donut-header {
+.debt-auth__head {
+  flex: 0 0 auto;
+}
+
+.debt-auth__head > * {
+  height: auto;
+}
+
+.debt-auth__chart-card {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1 1 auto;
+  min-height: clamp(320px, 60vh, 520px);
+}
+
+.debt-auth__chart-head {
+  display: flex;
+  align-items: baseline;
   justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0 var(--space-1);
 }
 
-.debt-auth__donut-title {
+.debt-auth__chart-title {
   font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  letter-spacing: var(--tracking-tight);
+}
+
+.debt-auth__chart-unit {
+  font-size: var(--text-2xs);
+  color: var(--color-text-subtle);
+  letter-spacing: var(--tracking-wide);
+}
+
+.debt-auth__chart-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+}
+
+.debt-auth__svg {
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+.debt-auth__legend {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  font-size: var(--text-2xs);
+  color: var(--color-text);
+  z-index: 3;
+  pointer-events: none;
+  min-width: 180px;
+}
+
+.debt-auth__legend-period {
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  font-size: 10px;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+.debt-auth__legend-row {
+  display: grid;
+  grid-template-columns: 12px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.debt-auth__legend-swatch {
+  width: 12px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.debt-auth__legend-name {
+  color: var(--color-text-muted);
+}
+
+.debt-auth__legend-value {
   font-weight: var(--font-semibold);
   color: var(--color-text);
 }
 
-.debt-auth__donut-body {
-  display: flex;
-  justify-content: center;
+.debt-auth__grid {
+  stroke: var(--color-border-soft);
+  stroke-dasharray: 2 4;
+}
+
+.debt-auth__axis-line {
+  stroke: var(--color-border);
+}
+
+.debt-auth__axis-label {
+  font-size: 11px;
+  fill: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.debt-auth__line {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.debt-auth__hover-line {
+  stroke: var(--color-border);
+  stroke-dasharray: 2 3;
 }
