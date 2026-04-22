@@ -25,8 +25,8 @@ interface PeriodDef {
 }
 
 const PERIODS: PeriodDef[] = [
-  { id: 'Q4-25', label: '4Q25', year: 2025, quarter: 4 },
   { id: 'Q1-26', label: '1Q26', year: 2026, quarter: 1 },
+  { id: 'Q4-26', label: '4Q26 (Proy.)', year: 2026, quarter: 4 },
   { id: 'Q1-27', label: '1Q27 (Proy.)', year: 2027, quarter: 1 },
 ]
 
