@@ -85,8 +85,6 @@ export function LiquidityCoverageChart({ data }: LiquidityCoverageChartProps) {
 
   const yTicks = [75, 100, 125, 150, 175, 200, 225]
 
-  const fmt = (n: number) => `${n}%`
-
   const hovered = hoverIdx !== null ? data[hoverIdx] : null
   const hoverX = hovered ? (x(hovered.year) ?? 0) : 0
 
