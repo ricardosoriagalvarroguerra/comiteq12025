@@ -239,7 +239,22 @@ function SlideRenderer() {
         'Proyección 2026: estable sobre umbral',
       ],
       detailTitle: 'Ratio de Capital Ajustado por Riesgo (RAC) S&P',
-      detailDescription: 'Niveles de adecuación del capital según metodología S&P con umbrales de calificación.',
+      detailDescription: (
+        <ul className="capital-adequacy__detail-list">
+          <li>
+            El incremento del RAC entre 2024 y 2025 se explica por 2 grandes factores:
+            <ul>
+              <li>
+                <strong>Cambio de Metodología (+9.4 pp):</strong> Eleva el RAC de 22.2% a 31.6%.
+              </li>
+              <li>
+                <strong>Exposure Exchange Agreement (+6.7 pp):</strong> Eleva el RAC de 31.6% a 38.3%.
+              </li>
+            </ul>
+          </li>
+          <li>RAC se mantiene en zona "extremely strong" en el horizonte de proyección.</li>
+        </ul>
+      ),
     },
     'slide-14': {
       eyebrow: 'Capacidad autorizada',

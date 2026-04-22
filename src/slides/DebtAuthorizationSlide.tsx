@@ -96,21 +96,49 @@ export function DebtAuthorizationSlide({
     return gen(ROWS) ?? ''
   }
 
-  const lineFor = (id: keyof Omit<Row, 'period'>) => {
+  const lineFor = (id: keyof Omit<Row, 'period'>, rows: Row[] = ROWS) => {
     const gen = d3
       .line<Row>()
       .x((r) => x(r.period) ?? 0)
       .y((r) => y(r[id]))
       .curve(d3.curveMonotoneX)
-    return gen(ROWS) ?? ''
+    return gen(rows) ?? ''
   }
 
+  const projStart = ROWS.findIndex((r) => r.period === 'Q2-2026')
+  const solidRows = projStart > 0 ? ROWS.slice(0, projStart) : ROWS
+  const dashedRows = projStart > 0 ? ROWS.slice(projStart - 1) : []
+
   const hovered = hover !== null ? ROWS[hover] : null
+
+  const legend = (
+    <div className="debt-auth__legend">
+      <span className="debt-auth__legend-period">
+        {hovered ? hovered.period : 'Leyenda'}
+      </span>
+      {SERIES.map((s) => {
+        const v = hovered ? hovered[s.id] : null
+        return (
+          <span key={s.id} className="debt-auth__legend-row">
+            <span
+              className="debt-auth__legend-swatch"
+              style={{ background: s.color }}
+            />
+            <span className="debt-auth__legend-name">{s.label}</span>
+            {v !== null && (
+              <strong className="debt-auth__legend-value">{nf0.format(v)}</strong>
+            )}
+          </span>
+        )
+      })}
+    </div>
+  )
 
   return (
     <div className="debt-auth">
       <div className="debt-auth__head">
         <TextCard eyebrow={eyebrow} title={title} description={description} />
+        {legend}
       </div>
       <Card padding="md" className="debt-auth__chart-card">
         <div className="debt-auth__chart-head">
@@ -119,26 +147,6 @@ export function DebtAuthorizationSlide({
         </div>
 
         <div className="debt-auth__chart-wrap" onMouseLeave={() => setHover(null)}>
-          <div className="debt-auth__legend">
-            <span className="debt-auth__legend-period">
-              {hovered ? hovered.period : 'Leyenda'}
-            </span>
-            {SERIES.map((s) => {
-              const v = hovered ? hovered[s.id] : null
-              return (
-                <span key={s.id} className="debt-auth__legend-row">
-                  <span
-                    className="debt-auth__legend-swatch"
-                    style={{ background: s.color }}
-                  />
-                  <span className="debt-auth__legend-name">{s.label}</span>
-                  {v !== null && (
-                    <strong className="debt-auth__legend-value">{nf0.format(v)}</strong>
-                  )}
-                </span>
-              )
-            })}
-          </div>
 
           <svg
             viewBox={`0 0 ${W} ${H}`}
@@ -196,12 +204,22 @@ export function DebtAuthorizationSlide({
                 className="debt-auth__line"
               />
               <path
-                d={lineFor('endeudamiento')}
+                d={lineFor('endeudamiento', solidRows)}
                 stroke={COLOR_ENDEUDAMIENTO}
                 fill="none"
                 strokeWidth={2}
                 className="debt-auth__line"
               />
+              {dashedRows.length > 1 && (
+                <path
+                  d={lineFor('endeudamiento', dashedRows)}
+                  stroke={COLOR_ENDEUDAMIENTO}
+                  fill="none"
+                  strokeWidth={2}
+                  strokeDasharray="5 4"
+                  className="debt-auth__line"
+                />
+              )}
 
               {/* Dots at hovered column */}
               {hovered && (

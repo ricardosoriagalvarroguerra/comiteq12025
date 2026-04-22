@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Card } from '@/components/ui/Card'
 import {
   CapitalAdequacyCombinedChart,
@@ -38,7 +39,7 @@ interface CapitalAdequacySlideProps {
   description?: string
   policyHighlights?: string[]
   detailTitle?: string
-  detailDescription?: string
+  detailDescription?: ReactNode
 }
 
 export function CapitalAdequacySlide({
@@ -87,9 +88,9 @@ export function CapitalAdequacySlide({
         <div className="capital-adequacy__detail-text">
           <Card padding="md" className="capital-adequacy__detail-card">
             <span className="capital-adequacy__detail-label">Detalle</span>
-            <p className="capital-adequacy__detail-desc">
+            <div className="capital-adequacy__detail-desc">
               {detailDescription ?? 'Niveles de adecuación del capital según metodología S&P y proyecciones.'}
-            </p>
+            </div>
           </Card>
         </div>
       </div>

@@ -9,9 +9,13 @@
 
 .debt-auth__head {
   flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: var(--space-4);
 }
 
-.debt-auth__head > * {
+.debt-auth__head > .text-card {
   height: auto;
 }
 
@@ -59,9 +63,6 @@
 }
 
 .debt-auth__legend {
-  position: absolute;
-  top: var(--space-2);
-  right: var(--space-2);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -72,9 +73,9 @@
   box-shadow: var(--shadow-card);
   font-size: var(--text-2xs);
   color: var(--color-text);
-  z-index: 3;
   pointer-events: none;
-  min-width: 180px;
+  min-width: 200px;
+  align-self: start;
 }
 
 .debt-auth__legend-period {
