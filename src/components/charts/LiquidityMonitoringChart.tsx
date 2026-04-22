@@ -1,4 +1,5 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import * as d3 from 'd3'
 import './LiquidityMonitoringChart.css'
 
@@ -25,6 +26,23 @@ export function LiquidityMonitoringChart({
 }: LiquidityMonitoringChartProps) {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const [hoverIdx, setHoverIdx] = useState<number | null>(null)
+  const [fullscreen, setFullscreen] = useState(false)
+
+  useEffect(() => {
+    if (!fullscreen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setFullscreen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    document.body.classList.add('is-chart-fullscreen')
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prev
+      document.body.classList.remove('is-chart-fullscreen')
+    }
+  }, [fullscreen])
 
   const width = VB_WIDTH
   const height = VB_HEIGHT
@@ -112,8 +130,33 @@ export function LiquidityMonitoringChart({
         100
       : 0
 
-  return (
-    <div className="liq-chart">
+  const chartNode = (
+    <div className={`liq-chart ${fullscreen ? 'liq-chart--fullscreen' : ''}`}>
+      <button
+        type="button"
+        className="liq-chart__fs-btn"
+        onClick={() => setFullscreen((f) => !f)}
+        aria-label={fullscreen ? 'Salir de pantalla completa' : 'Ver en pantalla completa'}
+        title={fullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}
+      >
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          {fullscreen ? (
+            <>
+              <path d="M6 2v4H2" />
+              <path d="M10 2v4h4" />
+              <path d="M6 14v-4H2" />
+              <path d="M10 14v-4h4" />
+            </>
+          ) : (
+            <>
+              <path d="M2 6V2h4" />
+              <path d="M14 6V2h-4" />
+              <path d="M2 10v4h4" />
+              <path d="M14 10v4h-4" />
+            </>
+          )}
+        </svg>
+      </button>
       <svg
         ref={svgRef}
         className="liq-chart__svg"
@@ -293,6 +336,8 @@ export function LiquidityMonitoringChart({
       )}
     </div>
   )
+
+  return fullscreen ? createPortal(chartNode, document.body) : chartNode
 }
 
 export type { LiquidityPoint }

@@ -173,7 +173,7 @@ function SlideRenderer() {
       title: 'Riesgo de Liquidez',
       cards: [
         { id: 'ratio-liq', title: 'Monitoreo Liquidez (Política Financiera)' },
-        { id: 'cobertura-liq', title: 'Cobertura de Liquidez' },
+        { id: 'cobertura-liq', title: 'Disponibilidad de Recursos Líquidos (Moodys)' },
         { id: 'activos-liq', title: 'Activos Liquidos' },
         { id: 'reservas', title: 'Reservas Operativas' },
       ],

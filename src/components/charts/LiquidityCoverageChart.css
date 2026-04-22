@@ -1,4 +1,4 @@
-.liq-chart {
+.liq-cov {
   position: relative;
   width: 100%;
   min-height: 0;
@@ -7,79 +7,52 @@
   overflow: hidden;
 }
 
-.liq-chart__svg {
+.liq-cov__svg {
   display: block;
   width: 100%;
   height: auto;
   max-width: 100%;
 }
 
-.liq-chart__grid {
+.liq-cov__grid {
   stroke: var(--color-border-soft);
   stroke-dasharray: 2 3;
   stroke-width: 1;
+  opacity: 0.6;
 }
 
-.liq-chart__axis-label {
+.liq-cov__axis-label {
   font-size: 12px;
   fill: var(--color-text-muted);
   font-variant-numeric: tabular-nums;
 }
 
-.liq-chart__hover-guide {
+.liq-cov__band-label {
+  font-size: 11px;
+  font-weight: var(--font-semibold);
+  fill: var(--color-text-muted);
+  letter-spacing: var(--tracking-wide);
+}
+
+.liq-cov__hover-guide {
   stroke: var(--color-text-muted);
   stroke-width: 1;
   stroke-dasharray: 2 3;
   pointer-events: none;
 }
 
-.liq-chart__data-label {
+.liq-cov__data-label {
   font-size: 11px;
   font-weight: var(--font-semibold);
   font-variant-numeric: tabular-nums;
-}
-
-.liq-chart__data-label--liq {
-  fill: #2d6a4f;
-}
-
-.liq-chart__data-label--min {
   fill: var(--color-accent);
+  paint-order: stroke;
+  stroke: var(--color-surface, #fff);
+  stroke-width: 3;
+  stroke-linejoin: round;
 }
 
-.liq-chart__legend {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  padding: 6px var(--space-2) 0;
-  font-size: 10px;
-  color: var(--color-text-muted);
-  flex-wrap: wrap;
-}
-
-.liq-chart__legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: var(--font-medium);
-  color: var(--color-text);
-}
-
-.liq-chart__legend-swatch {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.liq-chart__legend-unit {
-  margin-left: auto;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-}
-
-.liq-chart__tooltip {
+.liq-cov__tooltip {
   position: absolute;
   transform: translate(-50%, -100%);
   background: var(--color-surface);
@@ -99,7 +72,7 @@
   min-width: 140px;
 }
 
-.liq-chart__tooltip-date {
+.liq-cov__tooltip-date {
   font-size: 9px;
   font-weight: var(--font-bold);
   letter-spacing: var(--tracking-wide);
@@ -108,29 +81,29 @@
   margin-bottom: 2px;
 }
 
-.liq-chart__tooltip-row {
+.liq-cov__tooltip-row {
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
-.liq-chart__tooltip-swatch {
+.liq-cov__tooltip-swatch {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-.liq-chart__tooltip-label {
+.liq-cov__tooltip-label {
   color: var(--color-text-muted);
 }
 
-.liq-chart__tooltip-row strong {
+.liq-cov__tooltip-row strong {
   margin-left: auto;
   font-weight: var(--font-semibold);
 }
 
-.liq-chart__fs-btn {
+.liq-cov__fs-btn {
   position: absolute;
   top: 6px;
   right: 6px;
@@ -153,18 +126,18 @@
     border-color var(--duration-fast) var(--ease-default);
 }
 
-.liq-chart:hover .liq-chart__fs-btn,
-.liq-chart--fullscreen .liq-chart__fs-btn {
+.liq-cov:hover .liq-cov__fs-btn,
+.liq-cov--fullscreen .liq-cov__fs-btn {
   opacity: 1;
 }
 
-.liq-chart__fs-btn:hover {
+.liq-cov__fs-btn:hover {
   background: var(--color-surface-alt);
   color: var(--color-text);
   border-color: var(--color-border-soft);
 }
 
-.liq-chart--fullscreen {
+.liq-cov--fullscreen {
   position: fixed !important;
   inset: 0 !important;
   z-index: 200;
@@ -177,26 +150,25 @@
   overflow: hidden;
 }
 
-[data-theme="dark"] .liq-chart--fullscreen {
+[data-theme="dark"] .liq-cov--fullscreen {
   background: var(--color-surface, #141821);
 }
 
-.liq-chart--fullscreen .liq-chart__svg {
+.liq-cov--fullscreen .liq-cov__svg {
   flex: 1;
   min-height: 0;
   height: 100%;
   max-width: 100%;
 }
 
-.liq-chart--fullscreen .liq-chart__axis-label {
+.liq-cov--fullscreen .liq-cov__axis-label {
   font-size: 14px;
 }
 
-.liq-chart--fullscreen .liq-chart__data-label {
+.liq-cov--fullscreen .liq-cov__data-label {
   font-size: 13px;
 }
 
-.liq-chart--fullscreen .liq-chart__legend {
-  font-size: 12px;
-  padding: 0 var(--space-3);
+.liq-cov--fullscreen .liq-cov__band-label {
+  font-size: 13px;
 }
