@@ -360,6 +360,13 @@ function D3Chart({
   const [size, setSize] = useState({ width: 600, height: 320 })
   const [fullscreen, setFullscreen] = useState(false)
   const [localTip, setLocalTip] = useState<TooltipState | null>(null)
+  const [lineTip, setLineTip] = useState<{
+    left: number
+    top: number
+    title: string
+    period: string
+    rows: TooltipState['rows']
+  } | null>(null)
   const notifyHover = useCallback(
     (next: TooltipState | null) => {
       setLocalTip(next)
@@ -667,6 +674,18 @@ function D3Chart({
         .attr('stroke-width', 1)
         .attr('opacity', 0.55)
 
+      // Vertical hover guide (hidden by default)
+      const hoverGuide = g
+        .append('line')
+        .attr('class', 'pc-hover-guide')
+        .attr('y1', 0)
+        .attr('y2', innerH)
+        .attr('stroke', 'var(--color-text-muted, #6b7280)')
+        .attr('stroke-width', 1)
+        .attr('stroke-dasharray', '2 3')
+        .attr('opacity', 0)
+        .style('pointer-events', 'none')
+
       // Lines + markers per YoY category
       for (const cat of yoyCategories) {
         const pts = yoyData.filter((p) => p.yoy[cat] !== undefined)
@@ -678,23 +697,61 @@ function D3Chart({
           .y((d) => yPct(d.yoy[cat] as number))
           .curve(d3.curveMonotoneX)
 
-        g.append('path')
-          .datum(pts)
-          .attr('fill', 'none')
-          .attr('stroke', CATEGORY_COLOR[cat])
-          .attr('stroke-width', compact ? 1.75 : 2.25)
-          .attr('d', catLine as never)
+        // Split into historical and projected segments
+        const firstProjIdx = pts.findIndex((p) =>
+          PROJECTED_PERIODS.has(p.period),
+        )
+        const historicalPts =
+          firstProjIdx === -1 ? pts : pts.slice(0, firstProjIdx)
+        const projectedPts =
+          firstProjIdx === -1
+            ? []
+            : firstProjIdx > 0
+              ? pts.slice(firstProjIdx - 1)
+              : pts.slice(firstProjIdx)
 
+        if (historicalPts.length > 1) {
+          g.append('path')
+            .datum(historicalPts)
+            .attr('fill', 'none')
+            .attr('stroke', CATEGORY_COLOR[cat])
+            .attr('stroke-width', compact ? 1.75 : 2.25)
+            .attr('d', catLine as never)
+        }
+
+        if (projectedPts.length > 1) {
+          g.append('path')
+            .datum(projectedPts)
+            .attr('fill', 'none')
+            .attr('stroke', CATEGORY_COLOR[cat])
+            .attr('stroke-width', compact ? 1.75 : 2.25)
+            .attr('stroke-dasharray', '4 3')
+            .attr('d', catLine as never)
+        }
+
+        // Markers — hidden by default, shown on hover
         g.selectAll(`circle.pc-pt-${cat}`)
           .data(pts)
           .join('circle')
           .attr('class', `pc-pt pc-pt-${cat}`)
+          .attr('data-period', (d) => d.period)
           .attr('cx', (d) => (x(d.period) ?? 0) + x.bandwidth() / 2)
           .attr('cy', (d) => yPct(d.yoy[cat] as number))
-          .attr('r', compact ? 2.75 : 3.5)
+          .attr('r', compact ? 3 : 4)
           .attr('fill', CATEGORY_COLOR[cat])
           .attr('stroke', 'var(--color-surface, #fff)')
-          .attr('stroke-width', 1.25)
+          .attr('stroke-width', 1.5)
+          .attr('opacity', 0)
+          .style('pointer-events', 'none')
+      }
+
+      const allPts = g.selectAll<SVGCircleElement, YoyPoint>('circle.pc-pt')
+
+      const clearLineHover = () => {
+        hoverGuide.attr('opacity', 0)
+        allPts.attr('opacity', 0).attr('r', compact ? 3 : 4)
+        notifyHover(null)
+        setLineTip(null)
       }
 
       // Hover capture rects — show YoY per category in tooltip
@@ -709,6 +766,18 @@ function D3Chart({
         .attr('fill', 'transparent')
         .style('cursor', 'pointer')
         .on('mousemove', (_event, d) => {
+          const cx = (x(d.period) ?? 0) + x.bandwidth() / 2
+          hoverGuide
+            .attr('opacity', 1)
+            .attr('x1', cx)
+            .attr('x2', cx)
+
+          allPts
+            .attr('opacity', (c) => (c.period === d.period ? 1 : 0))
+            .attr('r', (c) =>
+              c.period === d.period ? (compact ? 5 : 6) : compact ? 3 : 4,
+            )
+
           const rows: TooltipState['rows'] = yoyCategories
             .filter((k) => d.yoy[k] !== undefined)
             .map((k) => {
@@ -734,12 +803,26 @@ function D3Chart({
             period: d.period,
             rows,
           })
+
+          // Local tooltip positioned below the lowest marker
+          const yValues = yoyCategories
+            .map((k) => d.yoy[k])
+            .filter((v): v is number => v !== undefined)
+            .map((v) => yPct(v))
+          const maxY = yValues.length ? Math.max(...yValues) : innerH / 2
+          setLineTip({
+            left: margin.left + cx,
+            top: margin.top + maxY + 14,
+            title,
+            period: d.period,
+            rows,
+          })
         })
-        .on('mouseleave', () => notifyHover(null))
+        .on('mouseleave', clearLineHover)
 
       const wrap = d3.select(wrapRef.current)
-      wrap.on('mouseleave.clear-hover', () => notifyHover(null))
-      wrap.on('pointerleave.clear-hover', () => notifyHover(null))
+      wrap.on('mouseleave.clear-hover', clearLineHover)
+      wrap.on('pointerleave.clear-hover', clearLineHover)
     }
 
     const svgEl = ref.current
@@ -766,6 +849,10 @@ function D3Chart({
   ])
 
   useEffect(() => () => notifyHover(null), [notifyHover])
+
+  useEffect(() => {
+    setLineTip(null)
+  }, [chartKind, data, activeCategories])
 
   const chartNode = (
     <div
@@ -807,6 +894,30 @@ function D3Chart({
       </header>
       <div className="portfolio-country__chart-surface" ref={wrapRef}>
         <svg ref={ref} width="100%" height="100%" />
+        {chartKind === 'line' && lineTip && (
+          <div
+            className="portfolio-country__line-tip"
+            role="status"
+            aria-live="polite"
+            style={{ left: lineTip.left, top: lineTip.top }}
+          >
+            <div className="portfolio-country__line-tip-period">
+              {formatPeriodLabel(lineTip.period)}
+            </div>
+            {lineTip.rows.map((r) => (
+              <div key={r.key} className="portfolio-country__line-tip-row">
+                <span
+                  className="portfolio-country__line-tip-swatch"
+                  style={{ background: r.color }}
+                />
+                <span className="portfolio-country__line-tip-label">
+                  {r.label}
+                </span>
+                <strong>{r.value}</strong>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {fullscreen && localTip && (
         <div className="portfolio-country__fs-tip" role="status" aria-live="polite">

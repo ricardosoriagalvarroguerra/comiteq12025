@@ -208,6 +208,56 @@
   position: relative;
 }
 
+.portfolio-country__line-tip {
+  position: absolute;
+  transform: translate(-50%, 0);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  padding: 6px 10px;
+  font-size: 11px;
+  color: var(--color-text);
+  pointer-events: none;
+  z-index: 5;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.portfolio-country__line-tip-period {
+  font-size: 9px;
+  font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+.portfolio-country__line-tip-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.portfolio-country__line-tip-swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.portfolio-country__line-tip-label {
+  color: var(--color-text-muted);
+}
+
+.portfolio-country__line-tip-row strong {
+  margin-left: auto;
+  font-weight: var(--font-semibold);
+}
+
 .portfolio-country__fs-btn {
   display: inline-flex;
   align-items: center;
