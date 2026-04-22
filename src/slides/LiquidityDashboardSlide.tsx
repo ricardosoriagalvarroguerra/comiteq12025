@@ -102,6 +102,26 @@ export function LiquidityDashboardSlide({
 }: LiquidityDashboardSlideProps) {
   const [first, second, third, fourth, ...rest] = cards
   const [showInfo, setShowInfo] = useState(false)
+  const [scenario, setScenario] = useState<'vpo' | 'dpp'>('vpo')
+  const [scenarioOpen, setScenarioOpen] = useState(false)
+
+  useEffect(() => {
+    if (!scenarioOpen) return
+    const onDocClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (!target.closest('.liq-dashboard__scenario')) {
+        setScenarioOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onDocClick)
+    return () => document.removeEventListener('mousedown', onDocClick)
+  }, [scenarioOpen])
+
+  const scenarioOptions: Array<{ value: 'vpo' | 'dpp'; label: string }> = [
+    { value: 'vpo', label: 'Escenario VPO' },
+    { value: 'dpp', label: 'Escenario DPP Promedio' },
+  ]
+  const currentScenario = scenarioOptions.find((o) => o.value === scenario)!
 
   useEffect(() => {
     if (!showInfo) return
@@ -121,6 +141,38 @@ export function LiquidityDashboardSlide({
           description={description}
           variant="default"
         />
+        <div className="liq-dashboard__scenario">
+          <button
+            type="button"
+            className="liq-dashboard__scenario-btn"
+            onClick={() => setScenarioOpen((v) => !v)}
+            aria-haspopup="listbox"
+            aria-expanded={scenarioOpen}
+          >
+            <span>{currentScenario.label}</span>
+            <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 6l4 4 4-4" />
+            </svg>
+          </button>
+          {scenarioOpen && (
+            <ul className="liq-dashboard__scenario-menu" role="listbox">
+              {scenarioOptions.map((o) => (
+                <li key={o.value} role="option" aria-selected={o.value === scenario}>
+                  <button
+                    type="button"
+                    className={`liq-dashboard__scenario-option ${o.value === scenario ? 'liq-dashboard__scenario-option--active' : ''}`}
+                    onClick={() => {
+                      setScenario(o.value)
+                      setScenarioOpen(false)
+                    }}
+                  >
+                    {o.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
         <button
           type="button"
           className="liq-dashboard__info-btn"
