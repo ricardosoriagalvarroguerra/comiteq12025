@@ -124,7 +124,7 @@
   margin: 0 auto;
   flex: 1;
   min-height: 0;
-  max-height: 430px;
+  max-height: 360px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -150,14 +150,14 @@
 }
 
 .spread-chart__axis-label {
-  font-size: 14px;
+  font-size: 11px;
   font-weight: var(--font-semibold);
   fill: var(--color-text);
   font-variant-numeric: tabular-nums;
 }
 
 .spread-chart__axis-title {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: var(--font-semibold);
   fill: var(--color-text-muted);
   letter-spacing: var(--tracking-wide);
