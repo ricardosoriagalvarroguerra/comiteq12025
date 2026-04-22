@@ -233,11 +233,6 @@ function SlideRenderer() {
       eyebrow: 'Política financiera',
       title: 'Ratio de Adecuación de Capital y Base Patrimonial',
       description: 'FONPLATA mantiene un límite mínimo de capital para la gestión integral de riesgos. El objetivo es mantener el ratio de adecuación del capital por encima del 35%.',
-      policyHighlights: [
-        'Ratio objetivo: >35% patrimonio/activos',
-        'S&P RAC: calificación actual AA-',
-        'Proyección 2026: estable sobre umbral',
-      ],
       detailTitle: 'Ratio de Capital Ajustado por Riesgo (RAC) S&P',
       detailDescription: (
         <ul className="capital-adequacy__detail-list">
