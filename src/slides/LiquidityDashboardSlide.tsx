@@ -68,6 +68,17 @@ const ASSET_STRUCTURE_DATA: AssetPoint[] = [
   { year: 2027, ratio: 36.4, projected: true },
 ]
 
+// DPP Promedio overrides projections for 2026/2027 only
+const DPP_COVERAGE_DATA: CoveragePoint[] = COVERAGE_DATA.map((d) =>
+  d.year === 2026 ? { ...d, fonplata: 134 } : d.year === 2027 ? { ...d, fonplata: 153 } : d,
+)
+const DPP_SP_COVERAGE_DATA: SpCoveragePoint[] = SP_COVERAGE_DATA.map((d) =>
+  d.year === 2026 ? { ...d, fonplata: 1.34 } : d.year === 2027 ? { ...d, fonplata: 1.34 } : d,
+)
+const DPP_ASSET_STRUCTURE_DATA: AssetPoint[] = ASSET_STRUCTURE_DATA.map((d) =>
+  d.year === 2026 ? { ...d, ratio: 32.2 } : d.year === 2027 ? { ...d, ratio: 30.5 } : d,
+)
+
 const LIQUIDITY_DATA: LiquidityPoint[] = [
   { date: 'mar-26', minimaRequerida: 632.41, liquidez: 1387.89 },
   { date: 'abr-26', minimaRequerida: 674.09, liquidez: 1378.78 },
@@ -245,7 +256,7 @@ export function LiquidityDashboardSlide({
               <span className="liq-dashboard__card-title">{second.title}</span>
             </header>
             <div className="liq-dashboard__card-body">
-              <LiquidityCoverageChart data={COVERAGE_DATA} />
+              <LiquidityCoverageChart data={scenario === 'dpp' ? DPP_COVERAGE_DATA : COVERAGE_DATA} />
             </div>
           </Card>
         )}
@@ -255,7 +266,7 @@ export function LiquidityDashboardSlide({
               <span className="liq-dashboard__card-title">{third.title}</span>
             </header>
             <div className="liq-dashboard__card-body">
-              <LiquidityCoverageSpChart data={SP_COVERAGE_DATA} />
+              <LiquidityCoverageSpChart data={scenario === 'dpp' ? DPP_SP_COVERAGE_DATA : SP_COVERAGE_DATA} />
             </div>
           </Card>
         )}
@@ -265,7 +276,7 @@ export function LiquidityDashboardSlide({
               <span className="liq-dashboard__card-title">{fourth.title}</span>
             </header>
             <div className="liq-dashboard__card-body">
-              <AssetStructureChart data={ASSET_STRUCTURE_DATA} />
+              <AssetStructureChart data={scenario === 'dpp' ? DPP_ASSET_STRUCTURE_DATA : ASSET_STRUCTURE_DATA} />
             </div>
           </Card>
         )}
