@@ -30,13 +30,25 @@ interface Slice {
 interface CountryDonutProps {
   values: Record<CarteraCountry, number>
   size: number
+  hoveredCountry?: CarteraCountry | null
+  onHoverChange?: (c: CarteraCountry | null) => void
 }
 
 const fmt = (n: number) =>
   n.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 1 })
 
-export function CountryDonut({ values, size }: CountryDonutProps) {
-  const [hover, setHover] = useState<CarteraCountry | null>(null)
+export function CountryDonut({
+  values,
+  size,
+  hoveredCountry,
+  onHoverChange,
+}: CountryDonutProps) {
+  const [localHover, setLocalHover] = useState<CarteraCountry | null>(null)
+  const hover = hoveredCountry !== undefined ? hoveredCountry : localHover
+  const setHover = (c: CarteraCountry | null) => {
+    if (hoveredCountry === undefined) setLocalHover(c)
+    onHoverChange?.(c)
+  }
 
   const data = useMemo<Slice[]>(
     () =>

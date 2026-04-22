@@ -109,7 +109,15 @@ function FsButton({ fullscreen, onToggle, className = '' }: { fullscreen: boolea
 }
 
 // ─── Fullscreen-capable donut ───
-function FsDonut({ period }: { period: PeriodDef }) {
+function FsDonut({
+  period,
+  hoveredCountry,
+  onHoverChange,
+}: {
+  period: PeriodDef
+  hoveredCountry: CarteraCountry | null
+  onHoverChange: (c: CarteraCountry | null) => void
+}) {
   const [fullscreen, setFullscreen] = useFullscreen()
   const values = useMemo(() => getCapacidadPorPais(period), [period])
   const size = fullscreen ? 360 : 140
@@ -121,7 +129,12 @@ function FsDonut({ period }: { period: PeriodDef }) {
         <FsButton fullscreen={fullscreen} onToggle={() => setFullscreen((f) => !f)} />
       </div>
       <div className="fs-chart__body">
-        <CountryDonut values={values} size={size} />
+        <CountryDonut
+          values={values}
+          size={size}
+          hoveredCountry={hoveredCountry}
+          onHoverChange={onHoverChange}
+        />
       </div>
     </div>
   )
@@ -130,7 +143,17 @@ function FsDonut({ period }: { period: PeriodDef }) {
 }
 
 // ─── Fullscreen-capable bar chart ───
-function FsBarChart({ period, unit }: { period: PeriodDef; unit: 'mm' | 'pct' }) {
+function FsBarChart({
+  period,
+  unit,
+  hoveredCountry,
+  onHoverChange,
+}: {
+  period: PeriodDef
+  unit: 'mm' | 'pct'
+  hoveredCountry: CarteraCountry | null
+  onHoverChange: (c: CarteraCountry | null) => void
+}) {
   const [fullscreen, setFullscreen] = useFullscreen()
   const w = fullscreen ? 1200 : 360
   const h = fullscreen ? 520 : 210
@@ -144,7 +167,14 @@ function FsBarChart({ period, unit }: { period: PeriodDef; unit: 'mm' | 'pct' })
         <FsButton fullscreen={fullscreen} onToggle={() => setFullscreen((f) => !f)} />
       </div>
       <div className="fs-chart__body">
-        <RatingBarChart period={period} width={w} height={h} unit={unit} />
+        <RatingBarChart
+          period={period}
+          width={w}
+          height={h}
+          unit={unit}
+          hoveredCountry={hoveredCountry}
+          onHoverChange={onHoverChange}
+        />
       </div>
     </div>
   )
@@ -159,10 +189,29 @@ interface RatingBarChartProps {
   width: number
   height: number
   unit: 'mm' | 'pct'
+  hoveredCountry?: CarteraCountry | null
+  onHoverChange?: (c: CarteraCountry | null) => void
 }
 
-function RatingBarChart({ period, width, height, unit }: RatingBarChartProps) {
+function RatingBarChart({
+  period,
+  width,
+  height,
+  unit,
+  hoveredCountry,
+  onHoverChange,
+}: RatingBarChartProps) {
   const [hover, setHover] = useState<{ bucket: Bucket; country: CarteraCountry } | null>(null)
+
+  const effectiveCountry = hoveredCountry ?? hover?.country ?? null
+  const handleEnterSegment = (bucket: Bucket, country: CarteraCountry) => {
+    setHover({ bucket, country })
+    onHoverChange?.(country)
+  }
+  const handleLeave = () => {
+    setHover(null)
+    onHoverChange?.(null)
+  }
 
   const cap = useMemo(() => getCapacidadPorPais(period), [period])
   const yearTotal = useMemo(
@@ -209,7 +258,7 @@ function RatingBarChart({ period, width, height, unit }: RatingBarChartProps) {
   return (
     <div
       className="risk-bar-chart"
-      onMouseLeave={() => setHover(null)}
+      onMouseLeave={handleLeave}
     >
       {hover && hoveredSegment && (
         <div className="risk-bar-chart__tooltip" role="status" aria-live="polite">
@@ -268,7 +317,8 @@ function RatingBarChart({ period, width, height, unit }: RatingBarChartProps) {
               const yTop = y(acc + s.value)
               const yBottom = y(acc)
               acc += s.value
-              const isFaded = hover !== null && !(hover.bucket === bd.bucket && hover.country === s.country)
+              const isFaded =
+                effectiveCountry !== null && effectiveCountry !== s.country
               return (
                 <rect
                   key={`${bd.bucket}-${s.country}`}
@@ -279,7 +329,7 @@ function RatingBarChart({ period, width, height, unit }: RatingBarChartProps) {
                   height={Math.max(0, yBottom - yTop)}
                   fill={COUNTRY_COLORS[s.country]}
                   opacity={isFaded ? 0.15 : 0.72}
-                  onMouseEnter={() => setHover({ bucket: bd.bucket, country: s.country })}
+                  onMouseEnter={() => handleEnterSegment(bd.bucket, s.country)}
                   style={{ cursor: 'pointer' }}
                 />
               )
@@ -320,6 +370,24 @@ function RatingBarChart({ period, width, height, unit }: RatingBarChartProps) {
 
 function UnifiedCard() {
   const [unit, setUnit] = useState<'mm' | 'pct'>('mm')
+  const [sharedHover, setSharedHover] = useState<{
+    periodId: string
+    country: CarteraCountry
+  } | null>(null)
+
+  const makeHandlers = (periodId: string) => ({
+    hoveredCountry:
+      sharedHover?.periodId === periodId ? sharedHover.country : null,
+    onHoverChange: (c: CarteraCountry | null) => {
+      if (c === null) {
+        setSharedHover((prev) =>
+          prev?.periodId === periodId ? null : prev,
+        )
+      } else {
+        setSharedHover({ periodId, country: c })
+      }
+    },
+  })
 
   return (
     <Card padding="md" className="risk-capacity__unified">
@@ -333,7 +401,7 @@ function UnifiedCard() {
       <div className="risk-capacity__donut-row">
         {PERIODS.map((p) => (
           <div key={p.id} className="risk-capacity__donut-wrap">
-            <FsDonut period={p} />
+            <FsDonut period={p} {...makeHandlers(p.id)} />
           </div>
         ))}
       </div>
@@ -354,7 +422,7 @@ function UnifiedCard() {
       <div className="risk-capacity__bar-row">
         {PERIODS.map((p) => (
           <div key={p.id} className="risk-capacity__bar-wrap">
-            <FsBarChart period={p} unit={unit} />
+            <FsBarChart period={p} unit={unit} {...makeHandlers(p.id)} />
           </div>
         ))}
       </div>
