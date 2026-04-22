@@ -68,6 +68,31 @@ const ASSET_STRUCTURE_DATA: AssetPoint[] = [
   { year: 2027, ratio: 36.4, projected: true },
 ]
 
+const DPP_LIQUIDITY_DATA: LiquidityPoint[] = [
+  { date: 'mar-26', minimaRequerida: 843.21, liquidez: 1387.89 },
+  { date: 'abr-26', minimaRequerida: 892.11, liquidez: 1379.14 },
+  { date: 'may-26', minimaRequerida: 907.65, liquidez: 1513.82 },
+  { date: 'jun-26', minimaRequerida: 978.26, liquidez: 1591.70 },
+  { date: 'jul-26', minimaRequerida: 956.79, liquidez: 1521.12 },
+  { date: 'ago-26', minimaRequerida: 981.59, liquidez: 1492.79 },
+  { date: 'sept-26', minimaRequerida: 739.17, liquidez: 1196.39 },
+  { date: 'oct-26', minimaRequerida: 686.17, liquidez: 1127.60 },
+  { date: 'nov-26', minimaRequerida: 877.33, liquidez: 1054.79 },
+  { date: 'dic-26', minimaRequerida: 898.41, liquidez: 1002.82 },
+  { date: 'ene-27', minimaRequerida: 918.21, liquidez: 996.55 },
+  { date: 'feb-27', minimaRequerida: 973.15, liquidez: 984.23 },
+  { date: 'mar-27', minimaRequerida: 1036.04, liquidez: 994.24 },
+  { date: 'abr-27', minimaRequerida: 1017.90, liquidez: 935.66 },
+  { date: 'may-27', minimaRequerida: 997.10, liquidez: 856.83 },
+  { date: 'jun-27', minimaRequerida: 938.27, liquidez: 766.13 },
+  { date: 'jul-27', minimaRequerida: 943.91, liquidez: 719.05 },
+  { date: 'ago-27', minimaRequerida: 946.11, liquidez: 667.94 },
+  { date: 'sept-27', minimaRequerida: 971.52, liquidez: 615.99 },
+  { date: 'oct-27', minimaRequerida: 938.65, liquidez: 636.87 },
+  { date: 'nov-27', minimaRequerida: 761.39, liquidez: 374.92 },
+  { date: 'dic-27', minimaRequerida: 909.77, liquidez: 300.43 },
+]
+
 // DPP Promedio overrides projections for 2026/2027 only
 const DPP_COVERAGE_DATA: CoveragePoint[] = COVERAGE_DATA.map((d) =>
   d.year === 2026 ? { ...d, fonplata: 134 } : d.year === 2027 ? { ...d, fonplata: 153 } : d,
@@ -246,7 +271,7 @@ export function LiquidityDashboardSlide({
               <span className="liq-dashboard__card-title">{first.title}</span>
             </header>
             <div className="liq-dashboard__card-body">
-              <LiquidityMonitoringChart data={LIQUIDITY_DATA} unit="USD MM" />
+              <LiquidityMonitoringChart data={scenario === 'dpp' ? DPP_LIQUIDITY_DATA : LIQUIDITY_DATA} unit="USD MM" />
             </div>
           </Card>
         )}
