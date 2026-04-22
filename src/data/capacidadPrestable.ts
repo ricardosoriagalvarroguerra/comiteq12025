@@ -1,5 +1,7 @@
 export type CapacidadCountry = 'ARG' | 'BOL' | 'BRA' | 'PAR' | 'URU' | 'RNS'
 
+export const CAPACIDAD_COUNTRIES: CapacidadCountry[] = ['ARG', 'BOL', 'BRA', 'PAR', 'URU', 'RNS']
+
 export interface CapacidadPeriod {
   period: string
   utilizadaPorPais: Record<CapacidadCountry, number>
@@ -8,6 +10,22 @@ export interface CapacidadPeriod {
   capacidadMax: number
   maxPorPais: number
   maxRNS: number
+  porCobrarPorPais: Record<CapacidadCountry, number>
+  porCobrarTotal: number
+  activosTotales: number
+  otrosActivos: number
+  maxActivosPorPais: number
+  maxActivosRNS: number
+  porActivarPorPais: Record<CapacidadCountry, number>
+  porActivarTotal: number
+}
+
+export function limiteCapacidad(p: CapacidadPeriod, country: CapacidadCountry): number {
+  return country === 'RNS' ? p.maxRNS : p.maxPorPais
+}
+
+export function limiteActivos(p: CapacidadPeriod, country: CapacidadCountry): number {
+  return country === 'RNS' ? p.maxActivosRNS : p.maxActivosPorPais
 }
 
 export const CAPACIDAD_PRESTABLE: CapacidadPeriod[] = [
@@ -19,6 +37,14 @@ export const CAPACIDAD_PRESTABLE: CapacidadPeriod[] = [
     capacidadMax: 5627.8,
     maxPorPais: 1406.9,
     maxRNS: 337.7,
+    porCobrarPorPais: { ARG: 597.2, BOL: 446.5, BRA: 386.4, PAR: 464.6, URU: 606.7, RNS: 120.5 },
+    porCobrarTotal: 2621.9,
+    activosTotales: 4122.0,
+    otrosActivos: 1500.1,
+    maxActivosPorPais: 1236.6,
+    maxActivosRNS: 412.2,
+    porActivarPorPais: { ARG: 50, BOL: 75, BRA: 0, PAR: 310, URU: 332.04, RNS: 0 },
+    porActivarTotal: 767.04,
   },
   {
     period: 'Q2-2026',
@@ -28,6 +54,14 @@ export const CAPACIDAD_PRESTABLE: CapacidadPeriod[] = [
     capacidadMax: 5686.5,
     maxPorPais: 1421.6,
     maxRNS: 341.2,
+    porCobrarPorPais: { ARG: 615.1, BOL: 448.7, BRA: 414.2, PAR: 465.7, URU: 609.7, RNS: 171.7 },
+    porCobrarTotal: 2725.0,
+    activosTotales: 4434.2,
+    otrosActivos: 1709.2,
+    maxActivosPorPais: 1330.3,
+    maxActivosRNS: 443.4,
+    porActivarPorPais: { ARG: 50, BOL: 75, BRA: 0, PAR: 310, URU: 332.04, RNS: 0 },
+    porActivarTotal: 767.04,
   },
   {
     period: 'Q3-2026',
@@ -37,6 +71,14 @@ export const CAPACIDAD_PRESTABLE: CapacidadPeriod[] = [
     capacidadMax: 5757.3,
     maxPorPais: 1439.3,
     maxRNS: 345.4,
+    porCobrarPorPais: { ARG: 604.4, BOL: 480.8, BRA: 446.2, PAR: 453.2, URU: 618.3, RNS: 171.3 },
+    porCobrarTotal: 2774.2,
+    activosTotales: 4408.3,
+    otrosActivos: 1634.1,
+    maxActivosPorPais: 1322.5,
+    maxActivosRNS: 440.8,
+    porActivarPorPais: { ARG: 50, BOL: 75, BRA: 0, PAR: 310, URU: 332.04, RNS: 0 },
+    porActivarTotal: 767.04,
   },
   {
     period: 'Q4-2026',
@@ -46,6 +88,14 @@ export const CAPACIDAD_PRESTABLE: CapacidadPeriod[] = [
     capacidadMax: 5859.4,
     maxPorPais: 1464.9,
     maxRNS: 351.6,
+    porCobrarPorPais: { ARG: 631.3, BOL: 510.4, BRA: 481.8, PAR: 482.5, URU: 625.3, RNS: 169.2 },
+    porCobrarTotal: 2900.5,
+    activosTotales: 4642.2,
+    otrosActivos: 1741.7,
+    maxActivosPorPais: 1392.7,
+    maxActivosRNS: 464.2,
+    porActivarPorPais: { ARG: 50, BOL: 75, BRA: 0, PAR: 310, URU: 332.04, RNS: 0 },
+    porActivarTotal: 767.04,
   },
   {
     period: 'Q1-2027',
@@ -55,5 +105,13 @@ export const CAPACIDAD_PRESTABLE: CapacidadPeriod[] = [
     capacidadMax: 5929.1,
     maxPorPais: 1482.3,
     maxRNS: 355.7,
+    porCobrarPorPais: { ARG: 660.2, BOL: 542.3, BRA: 490.8, PAR: 492.8, URU: 628.3, RNS: 169.2 },
+    porCobrarTotal: 2983.6,
+    activosTotales: 4822.2,
+    otrosActivos: 1838.6,
+    maxActivosPorPais: 1446.7,
+    maxActivosRNS: 482.2,
+    porActivarPorPais: { ARG: 50, BOL: 75, BRA: 0, PAR: 310, URU: 332.04, RNS: 0 },
+    porActivarTotal: 767.04,
   },
 ]

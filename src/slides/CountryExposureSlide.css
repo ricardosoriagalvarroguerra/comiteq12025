@@ -1,0 +1,47 @@
+.country-exposure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.country-exposure__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.country-exposure__country-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-2xs);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  font-weight: var(--font-semibold);
+}
+
+.country-exposure__top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 1024px) {
+  .country-exposure__top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.country-exposure__chart-card {
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(260px, 28vh, 320px);
+}
+
+.country-exposure__chart-card--wide {
+  min-height: clamp(240px, 26vh, 300px);
+}

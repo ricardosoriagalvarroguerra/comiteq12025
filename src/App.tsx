@@ -159,8 +159,6 @@ function SlideRenderer() {
       eyebrow: 'Monitoreo de riesgos',
       title: 'Exposición de Cartera al Riesgo',
       description: 'Métricas de exposición por país.',
-      cards: countries.map((c) => ({ id: `expo-${c}`, title: c })),
-      columns: 3,
     },
     'tablero-liquidez-4-cards': {
       eyebrow: 'Monitoreo de riesgos',

@@ -32,7 +32,7 @@ export const slides: SlideConfig[] = [
   // ── Monitoreo de Riesgos ──
   { id: 'section-monitoreo', type: 'section-title', variant: 'section' },
   { id: 'exposicion-cartera-riesgo', type: 'dual-charts', variant: 'content' },
-  { id: 'exposicion-cartera-riesgo-cards', type: 'line-cards-riesgo', variant: 'grid' },
+  { id: 'exposicion-cartera-riesgo-cards', type: 'country-exposure', variant: 'grid' },
   { id: 'tablero-liquidez-4-cards', type: 'line-cards-liquidez', variant: 'grid' },
   { id: 'prevision-perdida-cartera-prestamos', type: 'prevision', variant: 'content' },
   { id: 'adecuacion-del-capital', type: 'capital-adequacy', variant: 'grid' },

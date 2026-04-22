@@ -29,6 +29,7 @@ import { DebtAuthorizationSlide } from './DebtAuthorizationSlide'
 import { PrevisionSlide } from './PrevisionSlide'
 import { PlaceholderSlide } from './PlaceholderSlide'
 import { FlujosPorPaisSlide } from './FlujosPorPaisSlide'
+import { CountryExposureSlide } from './CountryExposureSlide'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const slideRegistry: Record<string, ComponentType<any>> = {
@@ -52,6 +53,7 @@ export const slideRegistry: Record<string, ComponentType<any>> = {
   'line-cards': LineCardsSlide,
   'line-cards-aprobaciones': ApprovalsByCountrySlide,
   'line-cards-riesgo': LineCardsSlide,
+  'country-exposure': CountryExposureSlide,
   'line-cards-liquidez': LiquidityDashboardSlide,
   'capital-adequacy': CapitalAdequacySlide,
   'dual-charts': DualChartsSlide,
