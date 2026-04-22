@@ -135,22 +135,8 @@
   border-right: 1px solid color-mix(in srgb, var(--color-border-soft) 88%, transparent);
 }
 
-.prevision-slide__code {
-  display: inline-block;
-  min-width: 48px;
-  padding: 2px 8px;
-  border-radius: var(--radius-full, 999px);
-  background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface-alt));
-  color: var(--color-accent);
-  font-weight: var(--font-bold);
-  letter-spacing: var(--tracking-wide);
-  font-size: 9px;
-  text-transform: uppercase;
-  text-align: center;
-  margin-right: var(--space-2);
-}
-
 .prevision-slide__pais {
+  display: inline-block;
   font-size: var(--text-2xs);
   color: var(--color-text-secondary);
   letter-spacing: 0.01em;
@@ -220,11 +206,6 @@
   border-top: 1px solid color-mix(in srgb, var(--color-border-soft) 90%, transparent);
 }
 
-.prevision-slide__tr--subtotal .prevision-slide__code {
-  background: var(--color-text-secondary);
-  color: var(--color-surface);
-}
-
 /* Total row */
 .prevision-slide__tbl .table-card__tr--total .table-card__td,
 .prevision-slide__tbl .table-card__tr--total .prevision-slide__sticky-col {
@@ -233,11 +214,6 @@
   color: var(--color-text);
   border-top: 2px solid var(--color-accent);
   font-size: var(--text-2xs);
-}
-
-.prevision-slide__tbl .table-card__tr--total .prevision-slide__code {
-  background: var(--color-accent);
-  color: var(--color-surface);
 }
 
 /* ── Chart ── */
@@ -341,7 +317,4 @@
     min-width: 104px;
   }
 
-  .prevision-slide__code {
-    min-width: 36px;
-  }
 }
