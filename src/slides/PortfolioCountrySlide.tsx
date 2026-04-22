@@ -894,7 +894,7 @@ function D3Chart({
       </header>
       <div className="portfolio-country__chart-surface" ref={wrapRef}>
         <svg ref={ref} width="100%" height="100%" />
-        {chartKind === 'line' && lineTip && (
+        {chartKind === 'line' && lineTip && (!compact || fullscreen) && (
           <div
             className="portfolio-country__line-tip"
             role="status"
