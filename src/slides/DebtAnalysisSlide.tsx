@@ -150,9 +150,17 @@ function SpreadChart({ rows, mode, fullscreen }: SpreadChartProps) {
   const innerH = H - margin.top - margin.bottom
 
   const showTotalSpread = mode === 'ponderado'
-  const series = showTotalSpread
+  const stockLabel = mode === 'marginal' ? 'Flujo' : 'Stock'
+  const baseSeries = showTotalSpread
     ? SERIES_PONDERADO
     : SERIES_PONDERADO.filter((s) => s.id !== 'totalSpread')
+  const series = baseSeries.map((s) =>
+    s.id === 'ifdStock'
+      ? { ...s, label: `IFD ${stockLabel}` }
+      : s.id === 'merStock'
+      ? { ...s, label: `Mercado ${stockLabel}` }
+      : s,
+  )
 
   const maxStock = useMemo(() => {
     const vals = rows.map((r) => r.totalStock)
