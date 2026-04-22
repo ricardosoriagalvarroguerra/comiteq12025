@@ -51,6 +51,14 @@ const nf0 = new Intl.NumberFormat('es-ES', {
   maximumFractionDigits: 0,
 })
 
+function formatPeriodLabel(anio: string): string {
+  const qm = /^(\d)Q-?(\d{2,4})$/i.exec(anio)
+  if (qm) return `${qm[1]}Q${qm[2].slice(-2)}`
+  const ym = /^\d{4}$/.exec(anio)
+  if (ym) return `4Q${anio.slice(-2)}`
+  return anio
+}
+
 // ── Compute min/max for a specific country (independent scales) ──
 function usePaisExtent(pais: FlujoPais): [number, number] {
   return useMemo(() => {
@@ -271,7 +279,7 @@ function FlujoChart({ pais, width, height, yDomain, compact = true, label, onHov
                 textAnchor="middle"
                 className="flujo-chart__axis-label flujo-chart__axis-label--x"
               >
-                {r.anio}
+                {formatPeriodLabel(r.anio)}
               </text>
             ) : null,
           )}
@@ -400,7 +408,7 @@ export function FlujosPorPaisSlide() {
           {hoverTip ? (
             <>
               <div className="flujos-slide__header-context">
-                {`${hoverTip.label} · ${hoverTip.period}`}
+                {`${hoverTip.label} · ${formatPeriodLabel(hoverTip.period)}`}
               </div>
               <div className="flujos-slide__header-grid">
                 {STACK_SERIES.map((s) => {
