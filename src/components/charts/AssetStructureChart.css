@@ -39,10 +39,6 @@
   font-weight: var(--font-semibold);
   font-variant-numeric: tabular-nums;
   fill: var(--color-accent);
-  paint-order: stroke;
-  stroke: var(--color-surface, #fff);
-  stroke-width: 3;
-  stroke-linejoin: round;
 }
 
 .asset-struct__tooltip {

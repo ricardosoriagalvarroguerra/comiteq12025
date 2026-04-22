@@ -45,6 +45,12 @@
   flex-direction: column;
   min-height: 0;
   height: 100%;
+  max-height: 340px;
+}
+
+.capital-adequacy__combo-card .cap-combo,
+.capital-adequacy__combo-card .rac-sp {
+  max-height: 300px;
 }
 
 .capital-adequacy__detail-header {

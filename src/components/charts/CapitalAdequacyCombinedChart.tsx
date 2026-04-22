@@ -8,6 +8,7 @@ interface CapitalAdequacyPoint {
   ratio: number
   activosAjustados: number
   patrimonio: number
+  projected?: boolean
 }
 
 interface CapitalAdequacyCombinedChartProps {
@@ -270,6 +271,7 @@ export function CapitalAdequacyCombinedChart({
             {/* Grouped bars */}
             {data.map((d) => {
               const bx = x(d.period) ?? 0
+              const barOpacity = d.projected ? 0.35 : 1
               return (
                 <g key={`bars-${d.period}`} transform={`translate(${bx},0)`}>
                   <rect
@@ -278,6 +280,10 @@ export function CapitalAdequacyCombinedChart({
                     width={xInner.bandwidth()}
                     height={Math.max(0, innerH - yBar(d.activosAjustados))}
                     fill={COLOR_ACTIVOS}
+                    fillOpacity={barOpacity}
+                    stroke={d.projected ? COLOR_ACTIVOS : 'none'}
+                    strokeDasharray={d.projected ? '3 2' : undefined}
+                    strokeWidth={d.projected ? 1 : 0}
                     rx={1.5}
                   />
                   <rect
@@ -286,21 +292,53 @@ export function CapitalAdequacyCombinedChart({
                     width={xInner.bandwidth()}
                     height={Math.max(0, innerH - yBar(d.patrimonio))}
                     fill={COLOR_PATRIMONIO}
+                    fillOpacity={barOpacity}
+                    stroke={d.projected ? COLOR_PATRIMONIO : 'none'}
+                    strokeDasharray={d.projected ? '3 2' : undefined}
+                    strokeWidth={d.projected ? 1 : 0}
                     rx={1.5}
                   />
                 </g>
               )
             })}
 
-            {/* Ratio line */}
-            <path
-              d={linePath(data) ?? ''}
-              fill="none"
-              stroke={COLOR_RATIO}
-              strokeWidth={2.4}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            {/* Ratio line — split into historical and projected */}
+            {(() => {
+              const firstProjIdx = data.findIndex((d) => d.projected)
+              const historicalPts =
+                firstProjIdx === -1 ? data : data.slice(0, firstProjIdx)
+              const projectedPts =
+                firstProjIdx === -1
+                  ? []
+                  : firstProjIdx > 0
+                    ? data.slice(firstProjIdx - 1)
+                    : data.slice(firstProjIdx)
+              return (
+                <>
+                  {historicalPts.length > 1 && (
+                    <path
+                      d={linePath(historicalPts) ?? ''}
+                      fill="none"
+                      stroke={COLOR_RATIO}
+                      strokeWidth={2.4}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  )}
+                  {projectedPts.length > 1 && (
+                    <path
+                      d={linePath(projectedPts) ?? ''}
+                      fill="none"
+                      stroke={COLOR_RATIO}
+                      strokeWidth={2.4}
+                      strokeDasharray="5 4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  )}
+                </>
+              )
+            })()}
 
             {/* Ratio data labels */}
             {data.map((d) => (

@@ -16,8 +16,8 @@ const RAC_SP_DATA: RacPoint[] = [
   { year: 2023, rac: 24.1 },
   { year: 2024, rac: 21.6 },
   { year: 2025, rac: 38.3 },
-  { year: 2026, rac: 35.8 },
-  { year: 2027, rac: 32.2 },
+  { year: 2026, rac: 35.8, projected: true },
+  { year: 2027, rac: 32.2, projected: true },
 ]
 
 const CAPITAL_ADEQUACY_DATA: CapitalAdequacyPoint[] = [
@@ -27,8 +27,8 @@ const CAPITAL_ADEQUACY_DATA: CapitalAdequacyPoint[] = [
   { period: '12/23', ratio: 50.76, activosAjustados: 3052.712, patrimonio: 1549.550 },
   { period: '12/24', ratio: 47.43, activosAjustados: 3690.107, patrimonio: 1750.171 },
   { period: '12/25', ratio: 51.05, activosAjustados: 3628.436, patrimonio: 1852.300 },
-  { period: '12/26', ratio: 46.68, activosAjustados: 4173.473, patrimonio: 1947.974 },
-  { period: '12/27', ratio: 46.07, activosAjustados: 4632.595, patrimonio: 2134.268 },
+  { period: '12/26', ratio: 46.68, activosAjustados: 4173.473, patrimonio: 1947.974, projected: true },
+  { period: '12/27', ratio: 46.07, activosAjustados: 4632.595, patrimonio: 2134.268, projected: true },
 ]
 
 interface CapitalAdequacySlideProps {
