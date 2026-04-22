@@ -4,7 +4,7 @@ import { CAPACIDAD_PRESTABLE } from '@/data/capacidadPrestable'
 import './DisponibleVsEtapasChart.css'
 
 const COLOR_ETAPAS = '#adb5bd'
-const ETAPAS_POR_ACTIVAR = 767
+const ETAPAS_POR_ACTIVAR = 654.79
 
 const fmt1 = (n: number) =>
   n.toLocaleString('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })

@@ -94,8 +94,8 @@ export const CAPACIDAD_PRESTABLE: CapacidadPeriod[] = [
     otrosActivos: 1741.7,
     maxActivosPorPais: 1392.7,
     maxActivosRNS: 464.2,
-    porActivarPorPais: { ARG: 50, BOL: 75, BRA: 0, PAR: 310, URU: 332.04, RNS: 0 },
-    porActivarTotal: 767.04,
+    porActivarPorPais: { ARG: 50, BOL: 75, BRA: 0, PAR: 215.29, URU: 314.5, RNS: 0 },
+    porActivarTotal: 654.79,
   },
   {
     period: 'Q1-2027',
@@ -111,7 +111,7 @@ export const CAPACIDAD_PRESTABLE: CapacidadPeriod[] = [
     otrosActivos: 1838.6,
     maxActivosPorPais: 1446.7,
     maxActivosRNS: 482.2,
-    porActivarPorPais: { ARG: 50, BOL: 75, BRA: 0, PAR: 310, URU: 332.04, RNS: 0 },
-    porActivarTotal: 767.04,
+    porActivarPorPais: { ARG: 50, BOL: 75, BRA: 0, PAR: 215.29, URU: 314.5, RNS: 0 },
+    porActivarTotal: 654.79,
   },
 ]
