@@ -148,33 +148,9 @@ function FlujoChart({ pais, width, height, yDomain, compact = true, label, onHov
   }, [rows, x, y])
 
   const xTickEvery = compact ? 2 : 1
-  const hovered = hover !== null ? rows[hover] : null
 
   return (
     <div className="flujo-chart" onMouseLeave={() => setHover(null)}>
-      {hovered && (
-        <div className="flujo-chart__tooltip" role="status" aria-live="polite">
-          <span className="flujo-chart__tooltip-period">{hovered.anio}</span>
-          <span className="flujo-chart__tooltip-row">
-            <span className="flujo-chart__tooltip-name">Flujo Neto</span>
-            <strong>{nf1.format(hovered.flujoNeto)} MM</strong>
-          </span>
-          {STACK_SERIES.map((s) => {
-            const val = hovered[s.id] as number
-            if (!val) return null
-            return (
-              <span key={s.id} className="flujo-chart__tooltip-row">
-                <span className="flujo-chart__tooltip-swatch" style={{ background: s.color }} />
-                <span className="flujo-chart__tooltip-name">{s.label}</span>
-                <strong>
-                  {s.sign < 0 ? '−' : ''}
-                  {nf1.format(val)}
-                </strong>
-              </span>
-            )
-          })}
-        </div>
-      )}
       <svg
         viewBox={`0 0 ${width} ${height}`}
         className="flujo-chart__svg"

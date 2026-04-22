@@ -402,77 +402,8 @@ function IfdMercadoChart({ data, width, height, label, onHoverChange }: IfdMerca
   )
   const yTicks = y.ticks(4)
 
-  const hovered = hover !== null ? data[hover] : null
-
   return (
     <div className="amort-chart" onMouseLeave={() => setHover(null)}>
-      <div
-        className={`amort-chart__panel ${hovered ? 'amort-chart__panel--hover' : ''}`}
-        role="status"
-        aria-live="polite"
-      >
-        {hovered && (
-          <span className="amort-chart__panel-period">
-            {hovered.anio}
-          </span>
-        )}
-        <span className="amort-chart__panel-row">
-          <span className="amort-chart__panel-swatch" style={{ background: COLOR_IFD }} />
-          <span className="amort-chart__panel-name">IFD</span>
-          {hovered && (
-            <strong className="amort-chart__panel-value">
-              {nf2.format(hovered.ifd)} MM
-            </strong>
-          )}
-        </span>
-        <span className="amort-chart__panel-row">
-          <span className="amort-chart__panel-swatch" style={{ background: COLOR_MERCADO }} />
-          <span className="amort-chart__panel-name">Mercado</span>
-          {hovered && (
-            <strong className="amort-chart__panel-value">
-              {nf2.format(hovered.mercado)} MM
-            </strong>
-          )}
-        </span>
-        <span className="amort-chart__panel-row">
-          <span
-            className="amort-chart__panel-swatch amort-chart__panel-swatch--proy"
-            style={{ background: COLOR_IFD }}
-          />
-          <span className="amort-chart__panel-name">IFD proy.</span>
-          {hovered && (
-            <strong className="amort-chart__panel-value">
-              {nf2.format(hovered.ifdProy ?? 0)} MM
-            </strong>
-          )}
-        </span>
-        <span className="amort-chart__panel-row">
-          <span
-            className="amort-chart__panel-swatch amort-chart__panel-swatch--proy"
-            style={{ background: COLOR_MERCADO }}
-          />
-          <span className="amort-chart__panel-name">Mercado proy.</span>
-          {hovered && (
-            <strong className="amort-chart__panel-value">
-              {nf2.format(hovered.mercadoProy ?? 0)} MM
-            </strong>
-          )}
-        </span>
-        {hovered && (
-          <span className="amort-chart__panel-row amort-chart__panel-row--total">
-            <span className="amort-chart__panel-name">Total</span>
-            <strong className="amort-chart__panel-value">
-              {nf2.format(
-                hovered.ifd +
-                  hovered.mercado +
-                  (hovered.ifdProy ?? 0) +
-                  (hovered.mercadoProy ?? 0),
-              )}{' '}
-              MM
-            </strong>
-          </span>
-        )}
-      </div>
       <svg
         viewBox={`0 0 ${width} ${height}`}
         className="amort-chart__svg"
