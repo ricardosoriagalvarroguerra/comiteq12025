@@ -246,7 +246,7 @@ function SlideRenderer() {
         'S&P RAC: calificación actual AA-',
         'Proyección 2026: estable sobre umbral',
       ],
-      detailTitle: 'RAC S&P',
+      detailTitle: 'Ratio de Capital Ajustado por Riesgo (RAC) S&P',
       detailDescription: 'Niveles de adecuación del capital según metodología S&P con umbrales de calificación.',
     },
     'slide-14': {

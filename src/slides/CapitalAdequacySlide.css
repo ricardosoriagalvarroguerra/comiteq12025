@@ -47,6 +47,19 @@
   height: 100%;
 }
 
+.capital-adequacy__detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.capital-adequacy__detail-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+}
+
 .capital-adequacy__policy-label,
 .capital-adequacy__detail-label {
   font-size: var(--text-xs);

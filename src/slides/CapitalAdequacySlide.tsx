@@ -1,10 +1,24 @@
-import { ChartPlaceholder } from '@/components/cards/ChartPlaceholder'
 import { Card } from '@/components/ui/Card'
 import {
   CapitalAdequacyCombinedChart,
   type CapitalAdequacyPoint,
 } from '@/components/charts/CapitalAdequacyCombinedChart'
+import {
+  RacSpChart,
+  type RacPoint,
+} from '@/components/charts/RacSpChart'
 import './CapitalAdequacySlide.css'
+
+const RAC_SP_DATA: RacPoint[] = [
+  { year: 2020, rac: 26.4 },
+  { year: 2021, rac: 23.0 },
+  { year: 2022, rac: 21.0 },
+  { year: 2023, rac: 24.1 },
+  { year: 2024, rac: 21.6 },
+  { year: 2025, rac: 38.3 },
+  { year: 2026, rac: 35.8 },
+  { year: 2027, rac: 32.2 },
+]
 
 const CAPITAL_ADEQUACY_DATA: CapitalAdequacyPoint[] = [
   { period: '12/20', ratio: 80.19, activosAjustados: 1388.467, patrimonio: 1113.397 },
@@ -60,12 +74,14 @@ export function CapitalAdequacySlide({
       </div>
       <div className="capital-adequacy__bottom">
         <div className="capital-adequacy__chart-detail">
-          <ChartPlaceholder
-            title={detailTitle ?? 'RAC S&P'}
-            chartType="line"
-            unit="%"
-            height="full"
-          />
+          <Card padding="md" className="capital-adequacy__combo-card">
+            <div className="capital-adequacy__detail-header">
+              <span className="capital-adequacy__detail-title">
+                {detailTitle ?? 'Ratio de Capital Ajustado por Riesgo (RAC) S&P'}
+              </span>
+            </div>
+            <RacSpChart data={RAC_SP_DATA} />
+          </Card>
         </div>
         <div className="capital-adequacy__detail-text">
           <Card padding="md" className="capital-adequacy__detail-card">
