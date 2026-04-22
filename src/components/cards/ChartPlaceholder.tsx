@@ -42,12 +42,12 @@ const chartIcons: Record<ChartType, string> = {
 }
 
 const chartLabels: Record<ChartType, string> = {
-  bar: 'Grafico de barras',
-  'stacked-bar': 'Grafico de barras apiladas',
-  line: 'Grafico de lineas',
-  donut: 'Grafico de dona',
-  scatter: 'Grafico de dispersion',
-  'grouped-bar': 'Grafico de barras agrupadas',
+  bar: 'Gráfico de barras',
+  'stacked-bar': 'Gráfico de barras apiladas',
+  line: 'Gráfico de líneas',
+  donut: 'Gráfico de dona',
+  scatter: 'Gráfico de dispersión',
+  'grouped-bar': 'Gráfico de barras agrupadas',
 }
 
 const SERIES_COLORS = [
