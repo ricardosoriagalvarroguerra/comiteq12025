@@ -18,7 +18,6 @@ const ROWS: Row[] = [
   { period: '2023', endeudamiento: 1030, envelope: 2500, limite: 3830 },
   { period: '2024', endeudamiento: 1405, envelope: 2500, limite: 4269 },
   { period: '2025', endeudamiento: 2079, envelope: 2500, limite: 5161 },
-  { period: '2026', endeudamiento: 2518, envelope: 2500, limite: 5445 },
   { period: 'Q1-2026', endeudamiento: 2090, envelope: 2500, limite: 5210 },
   { period: 'Q2-2026', endeudamiento: 2369, envelope: 5000, limite: 5449 },
   { period: 'Q3-2026', endeudamiento: 2320, envelope: 5000, limite: 5412 },
