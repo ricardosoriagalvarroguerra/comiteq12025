@@ -117,16 +117,9 @@ function SlideRenderer() {
     },
     // Section titles
     'section-cartera': { title: 'Cartera' },
-    'section-supuestos-presupuesto': { title: 'Evolución de suspuestos y proyecciones del presupuesto' },
     'section-monitoreo': { title: 'Monitoreo de Riesgos y Política Financiera' },
     'section-inversiones': { title: 'Inversiones' },
     'section-endeudamiento': { title: 'Endeudamiento' },
-    // Placeholder slides
-    'supuestos-presupuesto-evolucion': {
-      eyebrow: '2 · SUPUESTOS Y PRESUPUESTO',
-      title: 'Evolución de supuestos y proyecciones',
-      description: 'Evolución de los supuestos y proyecciones del presupuesto.',
-    },
     // Line cards
     'flujos-pais': {
       eyebrow: '2 · CARTERA',

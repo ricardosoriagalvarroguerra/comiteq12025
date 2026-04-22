@@ -23,10 +23,6 @@ export const slides: SlideConfig[] = [
   { id: 'proyecciones-desembolsos', type: 'debt-sources-proyecciones', variant: 'content' },
   { id: 'aprobaciones-y-cancelaciones', type: 'line-cards-aprobaciones', variant: 'grid' },
 
-  // ── Evolución de suspuestos y proyecciones del presupuesto ──
-  { id: 'section-supuestos-presupuesto', type: 'section-title', variant: 'section' },
-  { id: 'supuestos-presupuesto-evolucion', type: 'placeholder', variant: 'content' },
-
   // ── Monitoreo de Riesgos ──
   { id: 'section-monitoreo', type: 'section-title', variant: 'section' },
   { id: 'exposicion-cartera-riesgo', type: 'dual-charts', variant: 'content' },
@@ -64,15 +60,6 @@ export const navigationTopics: TopicGroup[] = [
       { id: 'flujos-pais', label: 'Flujo Neto por País' },
       { id: 'proyecciones-desembolsos', label: 'Proyecciones de Desembolsos' },
       { id: 'aprobaciones-y-cancelaciones', label: 'Aprobaciones y Cancelaciones' },
-    ],
-  },
-  {
-    id: 'section-supuestos-presupuesto',
-    tag: '02',
-    title: 'Evolución de suspuestos y proyecciones del presupuesto',
-    description: 'Supuestos, proyecciones y ejecución presupuestaria',
-    items: [
-      { id: 'supuestos-presupuesto-evolucion', label: 'Evolución de supuestos y proyecciones' },
     ],
   },
   {
