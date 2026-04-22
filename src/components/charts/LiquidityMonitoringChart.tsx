@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import * as d3 from 'd3'
 import './LiquidityMonitoringChart.css'
 
@@ -16,29 +16,18 @@ interface LiquidityMonitoringChartProps {
 const COLOR_LIQ = '#55a630'
 const COLOR_MIN = 'var(--color-accent, #c1121f)'
 
+const VB_WIDTH = 720
+const VB_HEIGHT = 320
+
 export function LiquidityMonitoringChart({
   data,
   unit = 'USD MM',
 }: LiquidityMonitoringChartProps) {
-  const wrapRef = useRef<HTMLDivElement | null>(null)
   const svgRef = useRef<SVGSVGElement | null>(null)
-  const [size, setSize] = useState({ width: 640, height: 300 })
   const [hoverIdx, setHoverIdx] = useState<number | null>(null)
 
-  useEffect(() => {
-    if (!wrapRef.current) return
-    const el = wrapRef.current
-    const obs = new ResizeObserver((entries) => {
-      for (const e of entries) {
-        const { width, height } = e.contentRect
-        if (width > 0 && height > 0) setSize({ width, height })
-      }
-    })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  const { width, height } = size
+  const width = VB_WIDTH
+  const height = VB_HEIGHT
   const margin = { top: 28, right: 16, bottom: 32, left: 52 }
   const innerW = Math.max(10, width - margin.left - margin.right)
   const innerH = Math.max(10, height - margin.top - margin.bottom)
@@ -96,15 +85,15 @@ export function LiquidityMonitoringChart({
   const handleMove = (e: React.PointerEvent<SVGSVGElement>) => {
     if (!svgRef.current) return
     const rect = svgRef.current.getBoundingClientRect()
-    const px = ((e.clientX - rect.left) / rect.width) * width - margin.left
-    if (px < 0 || px > innerW) {
+    const vbX = ((e.clientX - rect.left) / rect.width) * width - margin.left
+    if (vbX < 0 || vbX > innerW) {
       setHoverIdx(null)
       return
     }
     let closest = 0
     let closestD = Infinity
     data.forEach((d, i) => {
-      const dx = Math.abs((x(d.date) ?? 0) - px)
+      const dx = Math.abs((x(d.date) ?? 0) - vbX)
       if (dx < closestD) {
         closestD = dx
         closest = i
@@ -113,14 +102,23 @@ export function LiquidityMonitoringChart({
     setHoverIdx(closest)
   }
 
+  const tooltipLeftPct =
+    hovered != null ? ((margin.left + hoverX) / width) * 100 : 0
+  const tooltipTopPct =
+    hovered != null
+      ? ((margin.top +
+          Math.min(y(hovered.liquidez), y(hovered.minimaRequerida))) /
+          height) *
+        100
+      : 0
+
   return (
-    <div className="liq-chart" ref={wrapRef}>
+    <div className="liq-chart">
       <svg
         ref={svgRef}
         className="liq-chart__svg"
         viewBox={`0 0 ${width} ${height}`}
-        width="100%"
-        height="100%"
+        preserveAspectRatio="xMidYMid meet"
         onPointerMove={handleMove}
         onPointerLeave={() => setHoverIdx(null)}
       >
@@ -270,8 +268,8 @@ export function LiquidityMonitoringChart({
           role="status"
           aria-live="polite"
           style={{
-            left: margin.left + hoverX,
-            top: margin.top + Math.min(y(hovered.liquidez), y(hovered.minimaRequerida)) - 10,
+            left: `${tooltipLeftPct}%`,
+            top: `${tooltipTopPct}%`,
           }}
         >
           <div className="liq-chart__tooltip-date">{hovered.date}</div>
