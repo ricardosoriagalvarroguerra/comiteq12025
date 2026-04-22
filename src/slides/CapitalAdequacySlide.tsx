@@ -1,6 +1,21 @@
 import { ChartPlaceholder } from '@/components/cards/ChartPlaceholder'
 import { Card } from '@/components/ui/Card'
+import {
+  CapitalAdequacyCombinedChart,
+  type CapitalAdequacyPoint,
+} from '@/components/charts/CapitalAdequacyCombinedChart'
 import './CapitalAdequacySlide.css'
+
+const CAPITAL_ADEQUACY_DATA: CapitalAdequacyPoint[] = [
+  { period: '12/20', ratio: 80.19, activosAjustados: 1388.467, patrimonio: 1113.397 },
+  { period: '12/21', ratio: 57.71, activosAjustados: 2088.083, patrimonio: 1205.006 },
+  { period: '12/22', ratio: 53.14, activosAjustados: 2500.855, patrimonio: 1328.891 },
+  { period: '12/23', ratio: 50.76, activosAjustados: 3052.712, patrimonio: 1549.550 },
+  { period: '12/24', ratio: 47.43, activosAjustados: 3690.107, patrimonio: 1750.171 },
+  { period: '12/25', ratio: 51.05, activosAjustados: 3628.436, patrimonio: 1852.300 },
+  { period: '12/26', ratio: 46.68, activosAjustados: 4173.473, patrimonio: 1947.974 },
+  { period: '12/27', ratio: 46.07, activosAjustados: 4632.595, patrimonio: 2134.268 },
+]
 
 interface CapitalAdequacySlideProps {
   eyebrow?: string
@@ -12,7 +27,6 @@ interface CapitalAdequacySlideProps {
 }
 
 export function CapitalAdequacySlide({
-  eyebrow,
   title,
   description,
   policyHighlights,
@@ -23,13 +37,12 @@ export function CapitalAdequacySlide({
     <div className="capital-adequacy">
       <div className="capital-adequacy__top">
         <div className="capital-adequacy__chart-main">
-          <ChartPlaceholder
-            title={title}
-            subtitle={eyebrow}
-            chartType="line"
-            unit="%"
-            height="full"
-          />
+          <Card padding="md" className="capital-adequacy__combo-card">
+            <CapitalAdequacyCombinedChart
+              data={CAPITAL_ADEQUACY_DATA}
+              title={title}
+            />
+          </Card>
         </div>
         <div className="capital-adequacy__policy">
           <Card padding="md" className="capital-adequacy__policy-card">

@@ -324,7 +324,7 @@ const STOCK_DATA: IfdMercadoRow[] = [
   { anio: '2023', ifd: 357.05, mercado: 673.30 },
   { anio: '2024', ifd: 429.47, mercado: 974.85 },
   { anio: '2025', ifd: 514.70, mercado: 1563.49 },
-  { anio: '2026', ifd: 444, mercado: 1324, ifdProy: 50, mercadoProy: 700 },
+  { anio: '2026', ifd: 444, mercado: 1324, ifdProy: 7.78, mercadoProy: 700 },
 ]
 
 const FLUJOS_DATA: IfdMercadoRow[] = [

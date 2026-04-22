@@ -40,6 +40,13 @@
   height: 100%;
 }
 
+.capital-adequacy__combo-card {
+  display: flex !important;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
 .capital-adequacy__policy-label,
 .capital-adequacy__detail-label {
   font-size: var(--text-xs);
