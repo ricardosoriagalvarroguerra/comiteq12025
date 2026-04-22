@@ -32,17 +32,21 @@ interface CountryDonutProps {
   size: number
   hoveredCountry?: CarteraCountry | null
   onHoverChange?: (c: CarteraCountry | null) => void
+  tooltipDecimals?: number
 }
-
-const fmt = (n: number) =>
-  n.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 1 })
 
 export function CountryDonut({
   values,
   size,
   hoveredCountry,
   onHoverChange,
+  tooltipDecimals = 1,
 }: CountryDonutProps) {
+  const fmt = (n: number) =>
+    n.toLocaleString('es-AR', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: tooltipDecimals,
+    })
   const [localHover, setLocalHover] = useState<CarteraCountry | null>(null)
   const hover = hoveredCountry !== undefined ? hoveredCountry : localHover
   const setHover = (c: CarteraCountry | null) => {
@@ -104,7 +108,9 @@ export function CountryDonut({
             {fmt(hovered.value)} USD MM
           </span>
           <span className="country-donut__tooltip-pct">
-            {total > 0 ? ((hovered.value / total) * 100).toFixed(1) : '0.0'}%
+            {total > 0
+              ? ((hovered.value / total) * 100).toFixed(tooltipDecimals)
+              : (0).toFixed(tooltipDecimals)}%
           </span>
         </div>
       )}

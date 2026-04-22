@@ -134,6 +134,7 @@ function FsDonut({
           size={size}
           hoveredCountry={hoveredCountry}
           onHoverChange={onHoverChange}
+          tooltipDecimals={0}
         />
       </div>
     </div>
