@@ -121,7 +121,7 @@
 .spread-chart {
   position: relative;
   width: min(100%, 960px);
-  margin: 0 auto;
+  margin: auto;
   flex: 1;
   min-height: 0;
   max-height: 300px;
