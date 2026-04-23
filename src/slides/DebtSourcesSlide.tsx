@@ -32,7 +32,7 @@ const ifdRows = [
   { n: 19, instrumento: 'ICO 3 - Tramo 1', circulante: '17.78', disponible: '0.00', total: '17.78', spread: '88.0' },
   { n: 20, instrumento: 'ICO 3 - Tramo 2', circulante: '7.22', disponible: '0.00', total: '7.22', spread: '75.0', isHighlight: true },
   { n: 21, instrumento: 'KfW - Préstamo (29876)', circulante: '40.12', disponible: '0.00', total: '40.12', spread: '92.1' },
-  { n: '', instrumento: 'TOTAL', circulante: '526.1', disponible: '65.0', total: '591.1', spread: '121.7', isTotal: true },
+  { n: '', instrumento: 'TOTAL', circulante: '526.1', disponible: '65.0', total: '591.1', spread: '122', isTotal: true },
 ]
 
 const mercadoColumns = [
