@@ -187,6 +187,53 @@
   border-color: var(--color-border-soft);
 }
 
+.liq-dashboard__info-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.liq-dashboard__info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.liq-dashboard__info-list > li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--color-accent, #c1121f);
+}
+
+.liq-dashboard__info-item-label {
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+}
+
+.liq-dashboard__info-sublist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.liq-dashboard__info-sublist strong {
+  color: var(--color-text);
+  font-weight: var(--font-semibold);
+}
+
 .liq-dashboard__info-text {
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);

@@ -251,27 +251,29 @@ export function LiquidityDashboardSlide({
                   </svg>
                 </button>
               </div>
-              <p className="liq-dashboard__info-text">
-                {scenario === 'dpp' ? (
-                  <>
-                    Las proyecciones de liquidez para 2026 y 2027 consideran
-                    como supuesto de desembolsos las proyecciones usadas para
-                    el presupuesto:{' '}
-                    <strong>USD 735M en 2026</strong>,{' '}
-                    <strong>USD 770M en 2027</strong> y{' '}
-                    <strong>USD 808M en 2028</strong>.
-                  </>
-                ) : (
-                  <>
-                    Las proyecciones de liquidez para 2026 y 2027 consideran
-                    como supuesto de desembolsos las proyecciones de la
-                    Vicepresidencia de Operaciones:{' '}
-                    <strong>USD 543M en 2026</strong>,{' '}
-                    <strong>USD 658M en 2027</strong> y{' '}
-                    <strong>USD 766M en 2028</strong>.
-                  </>
-                )}
-              </p>
+              <ul className="liq-dashboard__info-list">
+                <li>
+                  <span className="liq-dashboard__info-item-label">Nueva deuda</span>
+                  <ul className="liq-dashboard__info-sublist">
+                    <li>2026: <strong>USD 750M</strong></li>
+                    <li>2027: <strong>USD 750M</strong></li>
+                  </ul>
+                </li>
+                <li>
+                  <span className="liq-dashboard__info-item-label">Desembolsos VPO</span>
+                  <ul className="liq-dashboard__info-sublist">
+                    <li>2026: <strong>USD 715M</strong></li>
+                    <li>2027: <strong>USD 658M</strong></li>
+                  </ul>
+                </li>
+                <li>
+                  <span className="liq-dashboard__info-item-label">Desembolsos DPP Promedio</span>
+                  <ul className="liq-dashboard__info-sublist">
+                    <li>2026: <strong>USD 735M</strong></li>
+                    <li>2027: <strong>USD 770M</strong></li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>,
           document.body,
