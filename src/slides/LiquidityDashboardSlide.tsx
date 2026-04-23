@@ -43,7 +43,7 @@ const COVERAGE_DATA: CoveragePoint[] = [
   { year: 2022, fonplata: 150 },
   { year: 2023, fonplata: 103 },
   { year: 2024, fonplata: 160 },
-  { year: 2025, fonplata: 159 },
+  { year: 2025, fonplata: 150 },
   { year: 2026, fonplata: 153, projected: true },
   { year: 2027, fonplata: 192, projected: true },
 ]
@@ -53,7 +53,7 @@ const SP_COVERAGE_DATA: SpCoveragePoint[] = [
   { year: 2022, fonplata: 1.0 },
   { year: 2023, fonplata: 1.0 },
   { year: 2024, fonplata: 1.3 },
-  { year: 2025, fonplata: 1.6 },
+  { year: 2025, fonplata: 1.38 },
   { year: 2026, fonplata: 1.50, projected: true },
   { year: 2027, fonplata: 1.49, projected: true },
 ]
@@ -98,7 +98,9 @@ const DPP_COVERAGE_DATA: CoveragePoint[] = COVERAGE_DATA.map((d) =>
   d.year === 2026 ? { ...d, fonplata: 134 } : d.year === 2027 ? { ...d, fonplata: 153 } : d,
 )
 const DPP_SP_COVERAGE_DATA: SpCoveragePoint[] = SP_COVERAGE_DATA.map((d) =>
-  d.year === 2026 ? { ...d, fonplata: 1.34 } : d.year === 2027 ? { ...d, fonplata: 1.34 } : d,
+  d.year === 2025 ? { ...d, fonplata: 1.34 } :
+  d.year === 2026 ? { ...d, fonplata: 1.34 } :
+  d.year === 2027 ? { ...d, fonplata: 1.34 } : d,
 )
 const DPP_ASSET_STRUCTURE_DATA: AssetPoint[] = ASSET_STRUCTURE_DATA.map((d) =>
   d.year === 2026 ? { ...d, ratio: 32.2 } : d.year === 2027 ? { ...d, ratio: 30.5 } : d,
