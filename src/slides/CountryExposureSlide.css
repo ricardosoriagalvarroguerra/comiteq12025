@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: var(--space-4);
   width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .country-exposure__header {
@@ -44,4 +46,23 @@
 
 .country-exposure__chart-card--wide {
   min-height: clamp(240px, 26vh, 300px);
+}
+
+@media (max-height: 780px) and (min-width: 1024px) {
+  .country-exposure {
+    gap: var(--space-3);
+  }
+
+  .country-exposure__top {
+    gap: var(--space-3);
+  }
+
+  .country-exposure__chart-card {
+    min-height: clamp(218px, 26vh, 260px);
+    padding: var(--space-4) var(--space-5) !important;
+  }
+
+  .country-exposure__chart-card--wide {
+    min-height: clamp(198px, 24vh, 240px);
+  }
 }

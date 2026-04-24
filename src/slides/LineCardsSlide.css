@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   gap: var(--space-5);
 }
 
@@ -12,6 +14,7 @@
 .line-cards-slide__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  grid-auto-rows: minmax(0, 1fr);
   gap: var(--space-4);
   flex: 1;
   min-height: 0;
@@ -35,5 +38,15 @@
 @media (min-width: 1280px) {
   .line-cards-slide__grid {
     grid-template-columns: repeat(var(--card-columns, 3), 1fr);
+  }
+}
+
+@media (max-height: 780px) and (min-width: 1024px) {
+  .line-cards-slide {
+    gap: var(--space-3);
+  }
+
+  .line-cards-slide__grid {
+    gap: var(--space-3);
   }
 }

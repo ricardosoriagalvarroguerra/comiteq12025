@@ -26,6 +26,17 @@
   flex-direction: column;
 }
 
+.liq-dashboard__card-body > :is(.liq-chart, .liq-cov, .liq-sp, .asset-struct) {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+}
+
+.liq-dashboard__card-body :is(.liq-chart__svg, .liq-cov__svg, .liq-sp__svg, .asset-struct__svg) {
+  height: 100%;
+  max-height: 100%;
+}
+
 .liq-dashboard__header {
   display: flex;
   align-items: center;
@@ -239,4 +250,16 @@
   line-height: var(--leading-relaxed);
   color: var(--color-text);
   margin: 0;
+}
+
+@media (max-height: 780px) and (min-width: 1024px) {
+  .liq-dashboard__card {
+    padding: var(--space-4) var(--space-5) !important;
+    gap: var(--space-1);
+  }
+
+  .liq-dashboard__card-title {
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+  }
 }

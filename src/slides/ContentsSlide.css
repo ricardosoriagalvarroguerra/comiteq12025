@@ -63,6 +63,25 @@
   }
 }
 
+@media (max-height: 780px) and (min-width: 1024px) {
+  .contents-slide {
+    gap: var(--space-5);
+  }
+
+  .contents-slide__intro {
+    gap: var(--space-2);
+  }
+
+  .contents-slide__topic-btn {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .contents-slide__item-btn {
+    padding-top: var(--space-1-5);
+    padding-bottom: var(--space-1-5);
+  }
+}
+
 /* ── Topic Card ── */
 .contents-slide__card {
   overflow: hidden;

@@ -624,3 +624,42 @@
   justify-self: end;
   white-space: nowrap;
 }
+
+@media (max-height: 780px) and (min-width: 1024px) {
+  .amort-slide {
+    gap: var(--space-2);
+  }
+
+  .amort-slide__header {
+    gap: var(--space-2);
+  }
+
+  .amort-slide > .text-card,
+  .amort-slide__header-panel,
+  .amort-slide__chart-card {
+    padding: var(--space-2) var(--space-3) !important;
+  }
+
+  .amort-slide__bottom {
+    gap: var(--space-2);
+  }
+
+  .amort-slide__negotiation-card {
+    gap: var(--space-1);
+  }
+
+  .amort-slide__negotiation-header {
+    padding-bottom: var(--space-1);
+  }
+
+  .amort-slide__negotiation-title {
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+  }
+
+  .amort-slide__negotiation-list {
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+  }
+}
