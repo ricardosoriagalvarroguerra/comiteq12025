@@ -15,7 +15,6 @@ const rows = [
   { concepto: 'Bancos', mar26: '$25,00', mar25: '$108,90', var: '(77,04%)' },
   { concepto: 'Endeudamientos', mar26: '$2.175,50', mar25: '$1.617,90', var: '34,46%' },
   { concepto: 'Patrimonio', mar26: '$1.871,10', mar25: '$1.776,60', var: '5,32%' },
-  { concepto: 'Otros activos y pasivos', mar26: '$(24,50)', mar25: '$(16,80)', var: '45,83%' },
 ]
 
 export function CambiosActivosPasivosSlide() {

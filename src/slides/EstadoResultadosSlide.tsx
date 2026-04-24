@@ -15,6 +15,7 @@ const ROWS: Row[] = [
   { label: 'Cartera de préstamos', kind: 'subheader' },
   { label: 'Intereses', mar26: '42,1', mar25: '44,2', var: '-4,7%', kind: 'indent' },
   { label: 'Otros ingresos por préstamos', mar26: '1,6', mar25: '2,3', var: '-30,6%', kind: 'indent' },
+  { label: 'Ingresos por cartera de préstamos', mar26: '43,7', mar25: '46,5', var: '-6,0%', kind: 'subtotal' },
   { label: 'Inversiones', kind: 'subheader' },
   { label: 'Intereses', mar26: '11,6', mar25: '7,2', var: '62,2%', kind: 'indent' },
   { label: 'Otros ingresos por inversiones', mar26: '—', mar25: '0,1', var: '-100,0%', kind: 'indent' },
